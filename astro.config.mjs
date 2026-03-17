@@ -12,14 +12,6 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: 'passthrough',
   }),
-  // build: {
-  //   client: './dist',
-  //   server: './dist/_worker.js',
-  // },
-  build: {
-    client: './dist', // 정적 파일 (이미지, JS 등)
-    server: './dist'         // 서버 파일 (_worker.js가 여기 생김)
-  },
   integrations: [
     preact({ compat: true }),
     clerk()
