@@ -10,7 +10,6 @@ import clerk from '@clerk/astro';
 export default defineConfig({
   output: 'server',
   adapter: cloudflare({
-    imageService: 'cloudflare',
     platformProxy: {
       enabled: true,
     },
@@ -25,9 +24,6 @@ export default defineConfig({
       alias: {
         'react-dom/server': 'react-dom/server.edge',
       }
-    },
-    ssr: {
-      external: ['node:worker_threads']
     }
   }
 });
