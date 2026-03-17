@@ -10,10 +10,7 @@ import clerk from '@clerk/astro';
 export default defineConfig({
   output: 'server',
   adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-      configPath: 'wrangler.local.toml',
-    },
+    configPath: 'wrangler.local.toml',
   }),
   integrations: [
     preact({ compat: true }),
