@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node -e \"const fs=require('fs'); const p='dist/server/wrangler.json'; if(fs.existsSync(p)){ const c=JSON.parse(fs.readFileSync(p)); delete c.assets; delete c.triggers; delete c.dev; delete c.observability; ['definedEnvironments','secrets_store_secrets','unsafe_hello_world','worker_loaders','ratelimits','vpc_services','python_modules'].forEach(f => delete c[f]); fs.writeFileSync(p, JSON.stringify(c)); console.log('Wrangler config patched for Pages'); }\"",
+    "build": "astro build && rm -f dist/server/wrangler.json",
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types"
