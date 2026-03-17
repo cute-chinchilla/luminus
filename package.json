@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "postbuild": "rm -f dist/server/wrangler.json || true",
+    "postbuild": "echo '{}' > dist/server/wrangler.json",
     "generate-types": "wrangler types"
   },
   "dependencies": {
