@@ -11,6 +11,9 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare({
     imageService: 'cloudflare',
+    platformProxy: {
+      enabled: true,
+    },
   }),
   integrations: [
     preact({ compat: true }),
