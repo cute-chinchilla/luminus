@@ -9,7 +9,9 @@ import clerk from '@clerk/astro';
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'cloudflare',
+  }),
   integrations: [
     preact({ compat: true }),
     clerk()
@@ -20,6 +22,9 @@ export default defineConfig({
       alias: {
         'react-dom/server': 'react-dom/server.edge',
       }
+    },
+    ssr: {
+      external: ['node:worker_threads']
     }
   }
 });
