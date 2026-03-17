@@ -1,0 +1,15 @@
+---
+import AuthLayout from '@/layouts/AuthLayout.astro';
+import { SignIn } from '@clerk/astro/components';
+---
+
+<AuthLayout title="로그인 - 루미너스의원">
+  <div class="flex justify-center flex-col items-center">
+    <SignIn 
+      routing="path" 
+      path="/auth/login" 
+      signUpUrl="/auth/register" 
+      fallbackRedirectUrl="/"
+    />
+  </div>
+</AuthLayout>

@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = '루미너스의원 피부과',
+  description = '프리미엄 피부과 루미너스의원에서 피부 본연의 아름다움을 되살려보세요.'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="text-dark overflow-x-hidden bg-surface min-h-screen flex items-center justify-center">
+  <main class="w-full max-w-md p-5 pb-20">
+    <!-- Home Link -->
+    <div class="text-center mb-8">
+      <a href="/" class="inline-block text-2xl font-en font-black tracking-widest text-[#1a1a1a] no-underline">LUMINUS</a>
+    </div>
+    
+    <slot />
+
+    <div class="mt-8 text-center text-[12px] text-muted">
+      &copy; 2026 LUMINUS CLINIC. All rights reserved.
+    </div>
+  </main>
+</body>
+</html>

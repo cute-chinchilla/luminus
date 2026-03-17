@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>루미너스의원 피부과</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="common.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#D4A017', dark: '#B8860B', light: '#F5D060' },
+        dark: { DEFAULT: '#1a1a1a', bg: '#111111' },
+        muted: { DEFAULT: '#888888', foreground: '#555555' },
+        surface: '#f5f5f0',
+      },
+      fontFamily: {
+        kr: ['Noto Sans KR', 'sans-serif'],
+        en: ['Playfair Display', 'serif'],
+      },
+    },
+  },
+}
+</script>
+<style>
+[data-slide] { transition: opacity 1.2s ease; }
+@keyframes heroZoom { 0%{transform:scale(1.05)} 100%{transform:scale(1.15)} }
+.hero-zoom { animation: heroZoom 8s ease-in-out infinite alternate; }
+</style>
+</head>
+<body class="text-dark overflow-x-hidden">
+
+<!-- HERO -->
+<section class="relative h-screen overflow-hidden bg-dark">
+  <div class="relative w-full h-full">
+    <div class="absolute inset-0 opacity-100" data-slide="0">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#2c2c2c] via-[#3a3a3a] to-[#2c2c2c]"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/65 to-black/20 z-[1]"></div>
+      <div class="absolute bottom-[18%] left-[8%] md:left-[8%] left-[5%] z-[2] max-w-[600px]">
+        <p class="text-base md:text-base text-[13px] text-white/70 mb-3 tracking-wide">피부 본연의 아름다움을 되살리는 루미너스의원</p>
+        <h2 class="font-en text-[30px] md:text-5xl font-bold text-white leading-[1.15] mb-4 tracking-wide">PREMIUM<br>SKIN CLINIC</h2>
+        <p class="text-[15px] text-white/70 mb-9 leading-relaxed">만족도 높은 고품격 프리미엄 서비스를 제공합니다.</p>
+        <a href="#" class="inline-block py-4 px-10 bg-primary text-dark text-sm font-bold tracking-widest no-underline hover:bg-primary-light hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(212,160,23,0.3)] transition-all">바로 예약하기</a>
+      </div>
+    </div>
+    <div class="absolute inset-0 opacity-0" data-slide="1">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/65 to-black/20 z-[1]"></div>
+      <div class="absolute bottom-[18%] left-[8%] md:left-[8%] left-[5%] z-[2] max-w-[600px]">
+        <p class="text-base md:text-base text-[13px] text-white/70 mb-3 tracking-wide">프리미엄 레이저 장비 보유</p>
+        <h2 class="font-en text-[30px] md:text-5xl font-bold text-white leading-[1.15] mb-4 tracking-wide">DRAMATIC,<br>CINEMATIC</h2>
+        <p class="text-[15px] text-white/70 mb-9 leading-relaxed">루미너스의원에서 고객님을 주인공으로 만들어드립니다.</p>
+        <a href="#" class="inline-block py-4 px-10 bg-primary text-dark text-sm font-bold tracking-widest no-underline hover:bg-primary-light hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(212,160,23,0.3)] transition-all">바로 예약하기</a>
+      </div>
+    </div>
+    <div class="absolute inset-0 opacity-0" data-slide="2">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#2d2d2d] via-[#383838] to-[#2d2d2d]"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/65 to-black/20 z-[1]"></div>
+      <div class="absolute bottom-[18%] left-[8%] md:left-[8%] left-[5%] z-[2] max-w-[600px]">
+        <p class="text-base md:text-base text-[13px] text-white/70 mb-3 tracking-wide">아름다운 피부를 위한 끊임없는 노력</p>
+        <h2 class="font-en text-[30px] md:text-5xl font-bold text-white leading-[1.15] mb-4 tracking-wide">HIGH-END<br>MEDICAL SERVICE</h2>
+        <p class="text-[15px] text-white/70 mb-9 leading-relaxed">신뢰할 수 있는 정교함과 최상의 피부의료 서비스 제공</p>
+        <a href="#" class="inline-block py-4 px-10 bg-primary text-dark text-sm font-bold tracking-widest no-underline hover:bg-primary-light hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(212,160,23,0.3)] transition-all">바로 예약하기</a>
+      </div>
+    </div>
+    <div class="absolute inset-0 opacity-0" data-slide="3">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#1b1b1b] via-[#2a2520] to-[#1b1b1b]"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/65 to-black/20 z-[1]"></div>
+      <div class="absolute bottom-[18%] left-[8%] md:left-[8%] left-[5%] z-[2] max-w-[600px]">
+        <p class="text-base md:text-base text-[13px] text-white/70 mb-3 tracking-wide">모던한 인테리어로 편안한 휴식을 선사합니다.</p>
+        <h2 class="font-en text-[30px] md:text-5xl font-bold text-white leading-[1.15] mb-4 tracking-wide">SPACE OF<br>WELL-BEING</h2>
+        <p class="text-[15px] text-white/70 mb-9 leading-relaxed">쾌적, 편안한 공간 &amp; 프라이빗 케어 시스템</p>
+        <a href="#" class="inline-block py-4 px-10 bg-primary text-dark text-sm font-bold tracking-widest no-underline hover:bg-primary-light hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(212,160,23,0.3)] transition-all">바로 예약하기</a>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-[8%] left-1/2 -translate-x-1/2 z-[2] flex gap-2.5" id="heroDots">
+    <span class="w-2.5 h-2.5 rounded-full bg-primary scale-[1.3] cursor-pointer transition-all" data-dot="0"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-white/30 cursor-pointer transition-all" data-dot="1"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-white/30 cursor-pointer transition-all" data-dot="2"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-white/30 cursor-pointer transition-all" data-dot="3"></span>
+  </div>
+</section>
+
+<!-- QUICK BAR -->
+<div class="hidden md:flex bg-dark">
+  <a href="tel:032-833-9909" class="flex-1 flex flex-col items-center justify-center py-6 px-2.5 text-white gap-2.5 text-[13px] tracking-wide no-underline border-r border-white/[0.06] hover:bg-primary-dark transition-colors">
+    <i class="fas fa-phone-alt text-2xl text-primary"></i>전화하기
+  </a>
+  <a href="#" class="flex-1 flex flex-col items-center justify-center py-6 px-2.5 text-white gap-2.5 text-[13px] tracking-wide no-underline border-r border-white/[0.06] hover:bg-primary-dark transition-colors">
+    <i class="fas fa-calendar-check text-2xl text-primary"></i>네이버예약
+  </a>
+  <a href="#" class="flex-1 flex flex-col items-center justify-center py-6 px-2.5 text-white gap-2.5 text-[13px] tracking-wide no-underline border-r border-white/[0.06] hover:bg-primary-dark transition-colors">
+    <i class="fas fa-comment-dots text-2xl text-primary"></i>카톡문의
+  </a>
+  <a href="promotion.html" class="flex-1 flex flex-col items-center justify-center py-6 px-2.5 text-white gap-2.5 text-[13px] tracking-wide no-underline hover:bg-primary-dark transition-colors">
+    <i class="fas fa-gift text-2xl text-primary"></i>프로모션
+  </a>
+</div>
+
+<!-- ADVANTAGE -->
+<section class="py-16 md:py-24 px-5 md:px-10 bg-surface">
+  <div class="text-center mb-12 fade-up">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Our Advantage</div>
+    <h3 class="font-en text-[28px] md:text-[38px] font-bold text-dark leading-snug"><em class="text-primary italic">OUR</em> Advantage</h3>
+    <p class="text-[15px] text-muted mt-3.5">루미너스의 특장점 및 공지사항을 확인하세요!</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[1100px] mx-auto fade-up">
+    <div class="relative rounded-xl overflow-hidden min-h-[320px] flex items-end cursor-pointer group">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#2c2c2c] to-[#3a3a3a] group-hover:scale-105 transition-transform duration-500"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/10 z-[1]"></div>
+      <span class="absolute top-5 left-5 z-[2] bg-primary text-dark px-4 py-1.5 text-xs font-bold tracking-wide rounded-sm">LUMINUS</span>
+      <div class="relative z-[2] p-8 text-white w-full">
+        <h4 class="text-[22px] font-bold mb-2">VIP MEMBERSHIP<br>특별한 혜택</h4>
+        <p class="text-sm opacity-80">루미너스 VIP만을 위한 프리미엄 멤버십</p>
+      </div>
+    </div>
+    <div class="relative rounded-xl overflow-hidden min-h-[320px] flex items-end cursor-pointer group">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#3a2a4a] to-[#5a3a6a] group-hover:scale-105 transition-transform duration-500"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/10 z-[1]"></div>
+      <span class="absolute top-5 left-5 z-[2] bg-primary text-dark px-4 py-1.5 text-xs font-bold tracking-wide rounded-sm">LUMINUS</span>
+      <div class="relative z-[2] p-8 text-white w-full">
+        <h4 class="text-[22px] font-bold mb-2">최신 의료 장비<br>하이엔드 서비스</h4>
+        <p class="text-sm opacity-80">검증된 최신 장비로 최상의 결과를 약속합니다</p>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-10 fade-up">
+    <a href="#" class="inline-block py-3.5 px-10 border border-dark text-sm tracking-widest font-medium no-underline hover:bg-dark hover:text-white transition-colors">VIEW MORE</a>
+  </div>
+</section>
+
+<!-- DEVICE -->
+<section class="py-16 md:py-24 px-5 md:px-10 bg-white">
+  <div class="text-center mb-12 fade-up">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Medical Device</div>
+    <h3 class="font-en text-[28px] md:text-[38px] font-bold text-dark leading-snug">Luminus <em class="text-primary italic">Medical Device</em></h3>
+    <p class="text-[15px] text-muted mt-3.5">루미너스의원 하이엔드 의료기기 소개</p>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 max-w-[1200px] mx-auto fade-up">
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-wave-square"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">울쎄라</h4><p class="text-xs text-muted">Ultherapy</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-broadcast-tower"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">올리지오</h4><p class="text-xs text-muted">Oligio</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-bolt"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">인모드</h4><p class="text-xs text-muted">InMode</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-crosshairs"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">슈링크 유니버스</h4><p class="text-xs text-muted">Shurink Universe</p></div>
+    </div>
+  </div>
+  <div class="text-center mt-10 fade-up">
+    <a href="equipment.html" class="inline-block py-3.5 px-10 border border-dark text-sm tracking-widest font-medium no-underline hover:bg-dark hover:text-white transition-colors">VIEW MORE</a>
+  </div>
+</section>
+
+<!-- BEFORE & AFTER -->
+<section class="py-16 md:py-24 px-5 md:px-10 bg-dark text-white">
+  <div class="text-center mb-12 fade-up">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Before &amp; After</div>
+    <h3 class="font-en text-[28px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">B &amp; A</em></h3>
+    <p class="text-[15px] text-white/50 mt-3.5">아름다운 변화를 확인해보세요.</p>
+  </div>
+  <div class="grid grid-cols-2 max-w-[800px] mx-auto rounded-xl overflow-hidden fade-up">
+    <div class="aspect-[4/3] flex items-center justify-center bg-[#2a2a2a] font-en text-2xl font-bold tracking-[4px]">
+      <div class="text-center">
+        <div class="text-base font-bold tracking-[4px] mb-3">BEFORE</div>
+        <div class="opacity-40 text-sm leading-relaxed">시술 전 사진이<br>표시됩니다</div>
+      </div>
+    </div>
+    <div class="aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-primary-dark to-primary text-dark font-en text-2xl font-bold tracking-[4px]">
+      <div class="text-center">
+        <div class="text-base font-bold tracking-[4px] mb-3">AFTER</div>
+        <div class="opacity-35 text-sm leading-relaxed text-black/35">시술 후 사진이<br>표시됩니다</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="py-20 md:py-28 px-5 md:px-10 bg-surface text-center cursor-pointer" onclick="location.href='doctors.html'">
+  <div class="max-w-[700px] mx-auto mb-16 fade-up">
+    <div class="font-en text-[13px] text-primary tracking-[3px] uppercase mb-3.5">Light Up, Luminus</div>
+    <h3 class="text-[22px] md:text-[28px] font-light leading-relaxed text-dark">
+      루미너스 클리닉에서는 개인에게 맞는 시술 계획만을 제안하여<br>
+      한 분 한 분의 니즈를 충족시켜 드리고자 합니다.
+    </h3>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-[1000px] mx-auto fade-up">
+    <div class="py-10 px-5 border-r border-black/[0.08] last:border-r-0 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">L</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Luminous</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">빛나는 피부를 위한<br>최적의 솔루션 제공</div>
+    </div>
+    <div class="py-10 px-5 border-r border-black/[0.08] last:border-r-0 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">U</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Unique</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">차별화된 서비스로<br>고객의 개성을 살려주는</div>
+    </div>
+    <div class="py-10 px-5 border-r border-black/[0.08] last:border-r-0 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">M</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Meticulous</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">정품, 정량, 원칙을 지키며<br>세심하게 시술하는</div>
+    </div>
+    <div class="py-10 px-5 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">I</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Intimate</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">당신 곁의<br>LUMINUS</div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="section-location" class="py-16 md:py-24 px-5 md:px-10 bg-white">
+  <div class="text-center mb-12 fade-up">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Location</div>
+    <h3 class="font-en text-[28px] md:text-[38px] font-bold text-dark leading-snug">Luminus <em class="text-primary italic">LOCATION</em></h3>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 max-w-[1200px] mx-auto items-start fade-up">
+    <div class="w-full aspect-[4/3] bg-gray-200 rounded-xl flex items-center justify-center text-muted text-[15px] overflow-hidden">
+      <div class="text-center">
+        <i class="fas fa-map-marked-alt text-5xl text-primary mb-4 block"></i>
+        지도가 표시됩니다
+      </div>
+    </div>
+    <div>
+      <h4 class="text-lg font-bold mb-1.5">오시는 길</h4>
+      <p class="text-[15px] text-dark font-medium mb-7 leading-relaxed">인천 연수구 해돋이로 160-15, 206-211호<br>(송도동, 더퍼스트시티)</p>
+
+      <dl class="mb-8">
+        <dt class="text-sm font-bold text-primary-dark mb-1.5 flex items-center gap-1.5"><i class="fas fa-bus text-primary"></i> 대중교통 이용 시</dt>
+        <dd class="text-[13px] text-muted-foreground leading-relaxed mb-3.5 pl-1">· 더샵 하버뷰 14단지 (98, 순환41)<br>· 송도 힐스테이트 5단지 (16, 지선 525)</dd>
+        <dt class="text-sm font-bold text-primary-dark mb-1.5 flex items-center gap-1.5"><i class="fas fa-subway text-primary"></i> 지하철 이용 시</dt>
+        <dd class="text-[13px] text-muted-foreground leading-relaxed mb-3.5 pl-1">· 인천 1호선 인천대입구역 하차 4번 출구, 도보 15분</dd>
+        <dt class="text-sm font-bold text-primary-dark mb-1.5 flex items-center gap-1.5"><i class="fas fa-car text-primary"></i> 자가용 이용 시</dt>
+        <dd class="text-[13px] text-muted-foreground leading-relaxed mb-3.5 pl-1">· 건물 뒷편 주차장 출입구 통해 주차</dd>
+      </dl>
+
+      <table class="w-full border-collapse mb-8">
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">월요일 - 금요일</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">09:30 - 20:00</td></tr>
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">토요일</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">09:30 - 15:30</td></tr>
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">점심시간</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">점심시간 없음</td></tr>
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">일요일</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">휴진</td></tr>
+      </table>
+
+      <div class="bg-surface p-6 rounded-lg">
+        <div class="text-xs text-muted tracking-wide uppercase mb-2">상담 &amp; 문의</div>
+        <div class="font-en text-[28px] font-bold text-primary-dark tracking-wide">032.833.9909</div>
+        <div class="text-[13px] text-muted mt-1">FAX 032.833.9908</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="common.js"></script>
+<script>
+const slides = document.querySelectorAll('[data-slide]');
+const dots = document.querySelectorAll('[data-dot]');
+let current = 0, interval;
+
+function goToSlide(n) {
+  slides[current].style.opacity = '0';
+  dots[current].className = 'w-2.5 h-2.5 rounded-full bg-white/30 cursor-pointer transition-all';
+  current = n;
+  slides[current].style.opacity = '1';
+  dots[current].className = 'w-2.5 h-2.5 rounded-full bg-primary scale-[1.3] cursor-pointer transition-all';
+}
+
+function startSlider() { interval = setInterval(() => goToSlide((current + 1) % slides.length), 5000); }
+
+dots.forEach(dot => dot.addEventListener('click', () => {
+  clearInterval(interval);
+  goToSlide(parseInt(dot.dataset.dot));
+  startSlider();
+}));
+
+startSlider();
+</script>
+</body>
+</html>

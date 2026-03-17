@@ -1,0 +1,36 @@
+import BeforeAfterCard from '@/components/common/BeforeAfterCard.astro';
+import { getDB } from '@/lib/db';
+import type { BeforeAfter } from '@/lib/types';
+
+const DB = getDB(Astro.locals);
+const items = await DB.prepare(`
+    SELECT * FROM before_after 
+    WHERE is_active = 1 
+    ORDER BY sort_order ASC, created_at DESC
+    LIMIT 1
+`).all<BeforeAfter>();
+
+const latestBA = items.results[0];
+---
+
+<section class="py-16 md:py-24 px-5 md:px-10 bg-dark text-white">
+  <div class="text-center mb-12 fade-up">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Before &amp; After</div>
+    <h3 class="font-en text-[28px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">B &amp; A</em></h3>
+    <p class="text-[15px] text-white/50 mt-3.5">아름다운 변화를 확인해보세요.</p>
+  </div>
+  <div class="max-w-[800px] mx-auto fade-up">
+    {latestBA ? (
+        <BeforeAfterCard 
+            before_image_url={latestBA.before_image_url}
+            after_image_url={latestBA.after_image_url}
+            title={latestBA.title}
+            treatment_name={latestBA.treatment_name}
+        />
+    ) : (
+        <div class="aspect-[16/9] flex items-center justify-center bg-[#2a2a2a] rounded-xl">
+            <p class="text-white/40">등록된 전후사진이 없습니다.</p>
+        </div>
+    )}
+  </div>
+</section>

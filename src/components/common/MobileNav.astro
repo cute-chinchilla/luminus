@@ -1,0 +1,44 @@
+---
+const user = await Astro.locals.currentUser();
+---
+
+<div id="mobileNav" class="fixed inset-0 z-[2000] bg-black/95 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-400">
+  <button onclick="closeMobileNav()" class="absolute top-6 right-8 text-3xl text-white cursor-pointer bg-transparent border-none">&times;</button>
+  <ul class="text-center list-none p-0">
+    <li><a href="/" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">루미너스의원</a></li>
+    <li><a href="#" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">리프팅 센터</a></li>
+    <li><a href="#" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">피부</a></li>
+    <li><a href="#" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">쁘띠</a></li>
+    <li><a href="#" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">바디</a></li>
+    <li><a href="#" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">여드름 · 모공</a></li>
+    <li><a href="#" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">제모</a></li>
+    <li><a href="/clinic/location" onclick="closeMobileNav()" class="block py-4 px-10 text-white text-lg tracking-widest no-underline hover:text-primary transition-colors">오시는 길</a></li>
+    <li class="mt-8 pt-6 border-t border-white/10 mx-6">
+      {user ? (
+        <a href="/mypage" onclick="closeMobileNav()" class="block py-3 text-primary text-[15px] font-bold tracking-widest no-underline"><i class="fas fa-user-circle mr-2"></i>마이페이지</a>
+      ) : (
+        <a href="/auth/login" onclick="closeMobileNav()" class="block py-3 text-primary text-[15px] font-bold tracking-widest no-underline"><i class="fas fa-sign-in-alt mr-2"></i>로그인 / 회원가입</a>
+      )}
+    </li>
+  </ul>
+</div>
+
+<script is:inline>
+  window.openMobileNav = function() {
+    var nav = document.getElementById('mobileNav');
+    if(nav) {
+      nav.style.opacity = '1';
+      nav.style.pointerEvents = 'all';
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeMobileNav = function() {
+    var nav = document.getElementById('mobileNav');
+    if(nav) {
+      nav.style.opacity = '0';
+      nav.style.pointerEvents = 'none';
+      document.body.style.overflow = '';
+    }
+  };
+</script>

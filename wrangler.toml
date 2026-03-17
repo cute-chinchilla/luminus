@@ -1,0 +1,12 @@
+name = "luminus"
+compatibility_date = "2024-03-20"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB" # Available in your worker as env.DB
+database_name = "luminus-db"
+database_id = "your-database-id-here"
+
+[[r2_buckets]]
+binding = "R2" # Available in your worker as env.R2
+bucket_name = "luminus-r2"

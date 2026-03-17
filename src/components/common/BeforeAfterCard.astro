@@ -1,0 +1,64 @@
+---
+interface Props {
+  before_image_url: string;
+  after_image_url: string;
+  title: string;
+  treatment_name: string;
+}
+
+const { before_image_url, after_image_url, title, treatment_name } = Astro.props;
+
+// Check authentication status using Clerk
+const user = await Astro.locals.auth();
+const isLoggedIn = !!user?.userId;
+---
+
+<div class="group fade-up overflow-hidden rounded-2xl bg-[#1a1a1a] border border-white/5 transition-all hover:border-primary/30">
+  <div class="relative grid grid-cols-2">
+    <!-- BEFORE IMAGE -->
+    <div class="relative aspect-[3/4] overflow-hidden">
+      <div class={`absolute inset-0 z-[1] flex items-center justify-center pointer-events-none`}>
+        <span class="bg-black/40 text-white text-[10px] font-bold px-2.5 py-1 tracking-widest backdrop-blur-sm">BEFORE</span>
+      </div>
+      <img 
+        src={before_image_url} 
+        alt={`${title} Before`} 
+        class={`w-full h-full object-cover transition-all duration-700 ${!isLoggedIn ? 'blur-xl scale-110 opacity-50' : 'group-hover:scale-105'}`}
+      />
+    </div>
+
+    <!-- AFTER IMAGE -->
+    <div class="relative aspect-[3/4] overflow-hidden border-l border-white/10">
+      <div class={`absolute inset-0 z-[1] flex items-center justify-center pointer-events-none`}>
+        <span class="bg-primary/80 text-dark text-[10px] font-bold px-2.5 py-1 tracking-widest backdrop-blur-sm">AFTER</span>
+      </div>
+      <img 
+        src={after_image_url} 
+        alt={`${title} After`} 
+        class={`w-full h-full object-cover transition-all duration-700 ${!isLoggedIn ? 'blur-xl scale-110 opacity-50' : 'group-hover:scale-105'}`}
+      />
+    </div>
+
+    <!-- BLUR OVERLAY (ONLY FOR NON-LOGGED IN) -->
+    {!isLoggedIn && (
+      <div class="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center bg-black/40 backdrop-blur-[2px]">
+        <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-lock text-primary"></i>
+        </div>
+        <h5 class="text-white text-sm font-bold mb-2">로그인 후 확인 가능합니다</h5>
+        <p class="text-white/50 text-[11px] mb-5 leading-relaxed">의료법 준수를 위해 전후사진은<br/>로그인한 회원에게만 공개됩니다.</p>
+        <a 
+          href="/auth/login" 
+          class="px-5 py-2 bg-primary text-dark text-[11px] font-bold tracking-widest rounded-full transition-transform hover:scale-105"
+        >
+          로그인 하기
+        </a>
+      </div>
+    )}
+  </div>
+
+  <div class="p-5">
+    <div class="text-primary text-[10px] font-bold tracking-[2px] uppercase mb-1">{treatment_name}</div>
+    <h4 class="text-white text-base font-bold line-clamp-1">{title}</h4>
+  </div>
+</div>

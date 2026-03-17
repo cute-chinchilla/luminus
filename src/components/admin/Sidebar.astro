@@ -1,0 +1,82 @@
+---
+const currentPath = Astro.url.pathname;
+
+const menuItems = [
+  { name: '대시보드', path: '/admin', icon: 'fa-tachometer-alt', exact: true },
+  { name: '히어로 슬라이더', path: '/admin/hero-slides', icon: 'fa-images', exact: false },
+  { name: '의료진 관리', path: '/admin/doctors', icon: 'fa-user-md', exact: false },
+  { name: '프로모션 카테고리', path: '/admin/categories', icon: 'fa-tags', exact: false },
+  { name: '프로모션 관리', path: '/admin/promotions', icon: 'fa-gift', exact: false },
+  { name: '예약 관리', path: '/admin/reservations', icon: 'fa-calendar-check', exact: false },
+  { name: '게시글 관리', path: '/admin/notices', icon: 'fa-bullhorn', exact: false },
+  { name: '회원 관리', path: '/admin/members', icon: 'fa-users', exact: false },
+];
+
+const isActive = (path: string, exact: boolean) => {
+  if (exact) {
+    return currentPath === path || currentPath === path + '/';
+  }
+  return currentPath.startsWith(path);
+};
+---
+
+<aside class="fixed inset-y-0 left-0 w-[240px] bg-[#1a1a1a] text-white/80 z-[100] hidden md:flex flex-col flex-shrink-0 transition-transform duration-300">
+  <div class="h-[70px] flex items-center px-6 border-b border-white/10 flex-shrink-0">
+    <a href="/admin" class="font-en text-xl font-bold text-white tracking-[4px] uppercase no-underline">
+      LUMIN<span class="text-primary">U</span>S
+      <span class="text-[10px] text-muted tracking-normal font-sans ml-2">ADMIN</span>
+    </a>
+  </div>
+  
+  <div class="flex-1 overflow-y-auto py-6 custom-scrollbar">
+    <div class="px-4 mb-3">
+      <p class="text-[11px] text-gray-500 font-bold uppercase tracking-wider px-3 mb-2">Menu</p>
+      <ul class="list-none p-0 flex flex-col gap-1">
+        {menuItems.map(item => {
+          const active = isActive(item.path, item.exact);
+          return (
+            <li>
+              <a 
+                href={item.path} 
+                class={`flex items-center gap-3 px-3 py-3 rounded-lg text-[14px] transition-colors no-underline ${active ? 'bg-primary/10 text-primary font-bold' : 'hover:bg-white/5 hover:text-white'}`}
+              >
+                <i class={`fas ${item.icon} w-5 text-center ${active ? 'text-primary' : 'text-gray-400'}`}></i>
+                {item.name}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-[100] pb-safe flex justify-around px-2 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+  {menuItems.slice(0, 5).map(item => {
+    const active = isActive(item.path, item.exact);
+    return (
+      <a href={item.path} class={`flex flex-col items-center justify-center w-full py-3 gap-1 no-underline ${active ? 'text-primary' : 'text-gray-400'}`}>
+        <i class={`fas ${item.icon} text-lg mb-0.5`}></i>
+        <span class="text-[10px] font-medium whitespace-nowrap tracking-tight">{item.name.split(' ')[0]}</span>
+      </a>
+    );
+  })}
+  {/* Add a generic "More" menu or similar if needed for remaining items, but keeping it simple for now */}
+</nav>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  { href: '/lifting/ulthera', label: '울쎄라' },
+  { href: '/lifting/oligio', label: '올리지오' },
+  { href: '/lifting/inmode', label: '인모드' },
+];
+---
+
+<div class="bg-surface border-b border-gray-200 overflow-x-auto scrollbar-hide">
+  <div class="flex justify-center max-w-[800px] mx-auto">
+    {navItems.map((item) => {
+      const isActive = pathname === item.href || pathname === `${item.href}/`;
+      return (
+        <a 
+          href={item.href} 
+          class={`py-3.5 px-6 text-sm no-underline whitespace-nowrap transition-colors ${
+            isActive 
+              ? 'font-bold text-primary border-b-2 border-primary' 
+              : 'text-muted hover:text-dark'
+          }`}
+        >
+          {item.label}
+        </a>
+      );
+    })}
+  </div>
+</div>

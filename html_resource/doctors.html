@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>의료진 소개 - 루미너스의원</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="common.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#D4A017', dark: '#B8860B', light: '#F5D060' },
+        dark: { DEFAULT: '#1a1a1a', bg: '#111111' },
+        muted: { DEFAULT: '#888888', foreground: '#555555' },
+        surface: '#f5f5f0',
+      },
+      fontFamily: {
+        kr: ['Noto Sans KR', 'sans-serif'],
+        en: ['Playfair Display', 'serif'],
+      },
+    },
+  },
+}
+</script>
+</head>
+<body class="text-dark overflow-x-hidden">
+
+
+<!-- PAGE BANNER -->
+<section class="pt-40 pb-14 md:pt-48 md:pb-20 px-5 md:px-10 bg-dark text-center">
+  <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Doctors</div>
+  <h2 class="font-en text-[24px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">Doctors</em></h2>
+  <p class="text-[14px] md:text-[15px] text-white/50 mt-3.5">루미너스의원 의료진을 소개합니다</p>
+</section>
+
+<!-- PHILOSOPHY (LUMI 소개) -->
+<section class="py-20 md:py-28 px-5 md:px-10 bg-surface text-center">
+  <div class="max-w-[700px] mx-auto mb-16 fade-up">
+    <div class="font-en text-[13px] text-primary tracking-[3px] uppercase mb-3.5">Light Up, Luminus</div>
+    <h3 class="text-[22px] md:text-[28px] font-light leading-relaxed text-dark">
+      루미너스 클리닉에서는 개인에게 맞는 시술 계획만을 제안하여<br>
+      한 분 한 분의 니즈를 충족시켜 드리고자 합니다.
+    </h3>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-[1000px] mx-auto fade-up">
+    <div class="py-10 px-5 border-r border-black/[0.08] last:border-r-0 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">L</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Luminous</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">빛나는 피부를 위한<br>최적의 솔루션 제공</div>
+    </div>
+    <div class="py-10 px-5 border-r border-black/[0.08] last:border-r-0 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">U</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Unique</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">차별화된 서비스로<br>고객의 개성을 살려주는</div>
+    </div>
+    <div class="py-10 px-5 border-r border-black/[0.08] last:border-r-0 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">M</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Meticulous</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">정품, 정량, 원칙을 지키며<br>세심하게 시술하는</div>
+    </div>
+    <div class="py-10 px-5 hover:bg-white hover:shadow-lg transition-all">
+      <div class="font-en text-[52px] font-bold text-primary mb-4 leading-none">I</div>
+      <div class="font-en text-sm text-dark tracking-wide mb-4">Intimate</div>
+      <hr class="w-[30px] border-none h-0.5 bg-primary mx-auto mb-4">
+      <div class="text-sm text-muted leading-relaxed">당신 곁의<br>LUMINUS</div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section class="py-16 md:py-24 px-5 md:px-10 bg-white">
+  <div class="text-center mb-14 fade-up">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Our Doctors</div>
+    <h3 class="font-en text-[28px] md:text-[38px] font-bold text-dark leading-snug">Luminus <em class="text-primary italic">Medical Staff</em></h3>
+    <p class="text-[15px] text-muted mt-3.5">전문 의료진이 최상의 결과를 약속합니다</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1100px] mx-auto">
+    <div class="text-center fade-up group">
+      <div class="relative w-full aspect-[3/4] bg-gradient-to-br from-[#f0ede8] to-[#e5e0d8] rounded-2xl overflow-hidden mb-6 flex items-center justify-center">
+        <div class="text-center">
+          <i class="fas fa-user-md text-7xl text-primary/30 mb-4 block"></i>
+          <span class="text-sm text-muted">원장 사진</span>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <p class="text-white text-sm leading-relaxed">피부과 전문의<br>레이저 시술 전문</p>
+        </div>
+      </div>
+      <div class="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">대표원장</div>
+      <h4 class="text-xl font-bold mb-2">김루미 원장</h4>
+      <p class="text-sm text-muted leading-relaxed">
+        서울대학교 의과대학 졸업<br>
+        대한피부과학회 정회원<br>
+        대한레이저의학회 정회원<br>
+        前 서울대학교병원 피부과 전공의
+      </p>
+    </div>
+    <div class="text-center fade-up group">
+      <div class="relative w-full aspect-[3/4] bg-gradient-to-br from-[#eef0f2] to-[#dde1e6] rounded-2xl overflow-hidden mb-6 flex items-center justify-center">
+        <div class="text-center">
+          <i class="fas fa-user-md text-7xl text-primary/30 mb-4 block"></i>
+          <span class="text-sm text-muted">원장 사진</span>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <p class="text-white text-sm leading-relaxed">피부과 전문의<br>리프팅 시술 전문</p>
+        </div>
+      </div>
+      <div class="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">원장</div>
+      <h4 class="text-xl font-bold mb-2">박빛나 원장</h4>
+      <p class="text-sm text-muted leading-relaxed">
+        연세대학교 의과대학 졸업<br>
+        대한피부과학회 정회원<br>
+        대한미용피부외과학회 정회원<br>
+        前 세브란스병원 피부과 전공의
+      </p>
+    </div>
+    <div class="text-center fade-up group">
+      <div class="relative w-full aspect-[3/4] bg-gradient-to-br from-[#f2efe8] to-[#e8e3d8] rounded-2xl overflow-hidden mb-6 flex items-center justify-center">
+        <div class="text-center">
+          <i class="fas fa-user-md text-7xl text-primary/30 mb-4 block"></i>
+          <span class="text-sm text-muted">원장 사진</span>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <p class="text-white text-sm leading-relaxed">피부과 전문의<br>보톡스/필러 시술 전문</p>
+        </div>
+      </div>
+      <div class="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">원장</div>
+      <h4 class="text-xl font-bold mb-2">이하늘 원장</h4>
+      <p class="text-sm text-muted leading-relaxed">
+        고려대학교 의과대학 졸업<br>
+        대한피부과학회 정회원<br>
+        대한피부외과학회 정회원<br>
+        前 고려대학교병원 피부과 전공의
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+<script src="common.js"></script>
+</body>
+</html>

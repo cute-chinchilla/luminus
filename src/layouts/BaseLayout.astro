@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+import BottomBar from '@/components/common/BottomBar.astro';
+import MobileNav from '@/components/common/MobileNav.astro';
+import SEOHead from '@/components/common/SEOHead.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const { 
+  title = '루미너스의원 피부과',
+  description = '프리미엄 피부과 루미너스의원에서 피부 본연의 아름다움을 되살려보세요.',
+  image,
+  type
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <SEOHead title={title} description={description} image={image} type={type} />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="text-dark overflow-x-hidden bg-white">
+  <Header />
+  <MobileNav />
+  
+  <main>
+    <slot />
+  </main>
+  
+  <Footer />
+  <BottomBar />
+
+  <script>
+    import { initScrollFade } from '../lib/scroll-fade';
+    
+    // Setup animations on initial load and view transitions
+    document.addEventListener('DOMContentLoaded', initScrollFade);
+    document.addEventListener('astro:page-load', initScrollFade);
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PromotionClient from '@/components/promotion/PromotionClient';
+import { getDB } from '@/lib/db';
+import type { PromotionCategory, Promotion } from '@/lib/types';
+
+const DB = getDB(Astro.locals);
+
+// Fetch categories
+const { results: catResults } = await DB.prepare('SELECT * FROM promotion_categories WHERE is_active = 1 ORDER BY sort_order ASC').all();
+const categories = (catResults as unknown as PromotionCategory[]).map(c => ({
+  ...c,
+  id: c.id.toString()
+}));
+
+// Fetch promotions
+const { results: promoResults } = await DB.prepare('SELECT * FROM promotions WHERE is_active = 1 ORDER BY sort_order ASC').all();
+const promotions = (promoResults as unknown as Promotion[]).map(p => ({
+  ...p,
+  id: p.id.toString(),
+  category_id: p.category_id.toString()
+}));
+---
+
+<BaseLayout 
+  title="프로모션 - 루미너스의원" 
+  description="루미너스의원의 다양한 혜택과 이벤트를 확인하세요."
+>
+  <!-- PAGE BANNER -->
+  <section class="pt-40 pb-14 md:pt-48 md:pb-20 px-5 md:px-10 bg-dark text-center">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Promotion</div>
+    <h2 class="font-en text-[24px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">Promotion</em></h2>
+    <p class="text-[14px] md:text-[15px] text-white/50 mt-3.5">루미너스의원의 다양한 혜택과 이벤트를 확인하세요</p>
+  </section>
+
+  <!-- IMPORTANT: Preact Island Component -->
+  <!-- client:load 로 렌더링 즉시 인터랙션 준비 (탭, 시트 등) -->
+  <PromotionClient 
+    client:load 
+    categories={categories} 
+    promotions={promotions} 
+  />
+
+  <!-- CTA BANNER -->
+  <section class="py-14 md:py-20 px-5 md:px-10 bg-dark text-center">
+    <div class="max-w-[600px] mx-auto fade-up">
+      <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-3">Reservation</div>
+      <h3 class="text-[22px] md:text-[28px] font-bold text-white leading-snug mb-4">상담 및 예약 안내</h3>
+      <p class="text-[15px] text-white/50 mb-8 leading-relaxed">프로모션 관련 자세한 상담은<br>전화 또는 카카오톡으로 문의해 주세요.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="tel:032-833-9909" class="inline-flex items-center justify-center gap-2 py-4 px-8 bg-primary text-dark text-sm font-bold tracking-widest no-underline hover:bg-primary-light transition-all">
+          <i class="fas fa-phone-alt"></i> 032.833.9909
+        </a>
+        <a href="#" class="inline-flex items-center justify-center gap-2 py-4 px-8 border border-white/30 text-white text-sm font-bold tracking-widest no-underline hover:bg-white/10 transition-all">
+          <i class="fas fa-comment-dots"></i> 카카오톡 상담
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

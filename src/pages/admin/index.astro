@@ -1,0 +1,89 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+
+// We will fetch real statistics from D1 later if needed, but for now we put some dummy values or setup the UI.
+const stats = [
+  { label: '오늘의 예약', value: '12', icon: 'fa-calendar-day', color: 'text-blue-500', bg: 'bg-blue-50' },
+  { label: '신규 예약 (미확인)', value: '3', icon: 'fa-bell', color: 'text-red-500', bg: 'bg-red-50' },
+  { label: '활성 프로모션', value: '15', icon: 'fa-gift', color: 'text-primary', bg: 'bg-primary/10' },
+  { label: '등록 의료진', value: '4', icon: 'fa-user-md', color: 'text-green-500', bg: 'bg-green-50' },
+];
+
+const recentReservations = [
+  { id: 101, name: '김지현', phone: '010-1234-5678', date: '2026-03-20', time: '14:00', status: 'pending', statusText: '대기중' },
+  { id: 100, name: '이민수', phone: '010-9876-5432', date: '2026-03-19', time: '10:30', status: 'confirmed', statusText: '확정' },
+  { id: 99, name: '박서연', phone: '010-4567-8901', date: '2026-03-19', time: '16:00', status: 'completed', statusText: '완료' },
+  { id: 98, name: '최동훈', phone: '010-2345-6789', date: '2026-03-18', time: '11:00', status: 'cancelled', statusText: '취소' },
+  { id: 97, name: '정하나', phone: '010-3456-7890', date: '2026-03-18', time: '15:30', status: 'confirmed', statusText: '확정' },
+];
+---
+
+<AdminLayout title="대시보드 - 관리자">
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-dark mb-2">대시보드</h1>
+    <p class="text-[14px] text-muted">루미너스의원 통합 관리 시스템입니다.</p>
+  </div>
+
+  <!-- 요약 카드 영역 -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
+    {stats.map(stat => (
+      <div class="bg-white rounded-xl p-5 border border-gray-100 shadow-sm flex items-center gap-4">
+        <div class={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${stat.bg}`}>
+          <i class={`fas ${stat.icon} text-xl ${stat.color}`}></i>
+        </div>
+        <div>
+          <p class="text-[12px] text-gray-500 font-medium mb-1">{stat.label}</p>
+          <p class="text-2xl font-black text-dark">{stat.value}<span class="text-sm font-normal text-muted ml-0.5">{stat.label.includes('예약') ? '건' : stat.label.includes('의료진') ? '명' : '개'}</span></p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- 최근 예약 목록 -->
+  <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+    <div class="flex items-center justify-between p-5 border-b border-gray-100/80">
+      <h2 class="text-[16px] font-bold text-dark"><i class="fas fa-clock text-primary mr-2"></i>최근 접수된 예약</h2>
+      <a href="/admin/reservations" class="text-[13px] text-gray-500 hover:text-dark no-underline font-medium">전체보기 <i class="fas fa-angle-right ml-1"></i></a>
+    </div>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse min-w-[600px]">
+        <thead>
+          <tr class="bg-gray-50/50">
+            <th class="py-3 px-5 text-[13px] font-bold text-gray-500 border-b border-gray-100">희망 일시</th>
+            <th class="py-3 px-5 text-[13px] font-bold text-gray-500 border-b border-gray-100">예약자명</th>
+            <th class="py-3 px-5 text-[13px] font-bold text-gray-500 border-b border-gray-100">연락처</th>
+            <th class="py-3 px-5 text-[13px] font-bold text-gray-500 border-b border-gray-100">상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          {recentReservations.map(res => (
+            <tr class="hover:bg-gray-50/50 transition-colors">
+              <td class="py-3.5 px-5 text-[14px] text-dark border-b border-gray-100/50">
+                <span class="font-medium mr-2">{res.date}</span>
+                <span class="text-gray-500">{res.time}</span>
+              </td>
+              <td class="py-3.5 px-5 text-[14px] font-bold text-dark border-b border-gray-100/50">{res.name}</td>
+              <td class="py-3.5 px-5 text-[14px] text-muted border-b border-gray-100/50">{res.phone}</td>
+              <td class="py-3.5 px-5 border-b border-gray-100/50">
+                <span class={`inline-block px-2.5 py-1 text-[11px] font-bold rounded ${
+                  res.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                  res.status === 'confirmed' ? 'bg-blue-100 text-blue-700' :
+                  res.status === 'completed' ? 'bg-green-100 text-green-700' :
+                  'bg-red-100 text-red-700'
+                }`}>
+                  {res.statusText}
+                </span>
+              </td>
+            </tr>
+          ))}
+          {recentReservations.length === 0 && (
+            <tr>
+              <td colspan="4" class="py-8 text-center text-[14px] text-muted border-b border-gray-100/50">최근 예약 내역이 없습니다.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</AdminLayout>

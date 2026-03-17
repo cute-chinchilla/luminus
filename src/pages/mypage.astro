@@ -1,0 +1,112 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { UserButton } from '@clerk/astro/components';
+
+const user = await Astro.locals.currentUser();
+
+if (!user) {
+  return Astro.redirect('/auth/login');
+}
+---
+
+<BaseLayout 
+  title="마이페이지 - 루미너스의원" 
+  description="루미너스의원 마이페이지입니다."
+>
+  <section class="py-20 md:py-32 bg-surface min-h-[70vh]">
+    <div class="max-w-[600px] mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 text-center fade-up">
+      <div class="flex justify-center mb-6">
+        <UserButton appearance={{ elements: { userButtonAvatarBox: "w-20 h-20" } }} />
+      </div>
+      <h2 class="text-[22px] md:text-[28px] font-bold text-dark mb-2">
+        {user.firstName || user.fullName || '고객'}님, 안녕하세요
+      </h2>
+      <p class="text-[14px] text-muted mb-10">{user.emailAddresses[0]?.emailAddress}</p>
+
+      <div class="border-t border-gray-100 pt-8 mt-8">
+        <button 
+          id="withdrawBtn"
+          class="text-[13px] text-gray-400 underline hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer"
+        >
+          회원탈퇴
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 회원탈퇴 모달 -->
+  <div id="withdrawModal" class="fixed inset-0 bg-black/50 z-[5000] hidden items-center justify-center opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-2xl p-8 max-w-[400px] w-[90%] text-center scale-95 transition-transform duration-300" id="withdrawModalContent">
+      <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
+      <h3 class="text-xl font-bold mb-3">정말 탈퇴하시겠습니까?</h3>
+      <p class="text-[14px] text-muted leading-relaxed mb-8">
+        탈퇴 시 모든 정보가 바로 삭제되며,<br>
+        삭제된 데이터는 복구할 수 없습니다.
+      </p>
+      <div class="flex gap-3">
+        <button id="cancelWithdrawBtn" class="flex-1 py-3.5 bg-gray-100 text-dark font-bold rounded-lg hover:bg-gray-200 transition-colors cursor-pointer border-none">취소</button>
+        <button id="confirmWithdrawBtn" class="flex-1 py-3.5 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 transition-colors cursor-pointer border-none">탈퇴하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    const withdrawModal = document.getElementById('withdrawModal');
+    const withdrawModalContent = document.getElementById('withdrawModalContent');
+    const cancelWithdrawBtn = document.getElementById('cancelWithdrawBtn');
+    const confirmWithdrawBtn = document.getElementById('confirmWithdrawBtn');
+
+    if (withdrawBtn && withdrawModal && cancelWithdrawBtn && confirmWithdrawBtn && withdrawModalContent) {
+      const closeModal = () => {
+        withdrawModal.classList.remove('opacity-100');
+        withdrawModalContent.classList.remove('scale-100');
+        setTimeout(() => {
+          withdrawModal.classList.add('hidden');
+          withdrawModal.classList.remove('flex');
+        }, 300);
+      };
+
+      withdrawBtn.addEventListener('click', () => {
+        withdrawModal.classList.remove('hidden');
+        withdrawModal.classList.add('flex');
+        // Trigger reflow
+        void withdrawModal.offsetWidth;
+        withdrawModal.classList.add('opacity-100');
+        withdrawModalContent.classList.add('scale-100');
+      });
+
+      cancelWithdrawBtn.addEventListener('click', closeModal);
+      
+      // Close on backdrop click
+      withdrawModal.addEventListener('click', (e) => {
+        if (e.target === withdrawModal) closeModal();
+      });
+
+      confirmWithdrawBtn.addEventListener('click', async () => {
+        try {
+          confirmWithdrawBtn.textContent = '처리 중...';
+          confirmWithdrawBtn.setAttribute('disabled', 'true');
+          
+          const response = await fetch('/api/auth/withdraw', {
+            method: 'POST',
+          });
+          
+          if (response.ok) {
+            alert('회원 탈퇴가 완료되었습니다.');
+            window.location.href = '/';
+          } else {
+            const data = await response.json();
+            alert('오류 발생: ' + (data.error || '알 수 없는 오류'));
+          }
+        } catch (error) {
+          console.error(error);
+          alert('네트워크 오류가 발생했습니다.');
+        } finally {
+          confirmWithdrawBtn.textContent = '탈퇴하기';
+          confirmWithdrawBtn.removeAttribute('disabled');
+        }
+      });
+    }
+  </script>
+</BaseLayout>

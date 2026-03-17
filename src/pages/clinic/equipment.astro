@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/common/PageBanner.astro';
+
+const devices = [
+  { icon: 'fa-wave-square', name: '울쎄라', nameEn: 'Ultherapy' },
+  { icon: 'fa-broadcast-tower', name: '올리지오', nameEn: 'Oligio' },
+  { icon: 'fa-bolt', name: '인모드', nameEn: 'InMode' },
+  { icon: 'fa-crosshairs', name: '슈링크 유니버스', nameEn: 'Shurink Universe' },
+  { icon: 'fa-sun', name: '피코슈어', nameEn: 'PicoSure' },
+  { icon: 'fa-microscope', name: '포텐자', nameEn: 'Potenza' },
+  { icon: 'fa-magic', name: '소프웨이브', nameEn: 'Sofwave' },
+  { icon: 'fa-star', name: '젠틀맥스 프로', nameEn: 'GentleMax Pro+' },
+];
+---
+
+<BaseLayout 
+  title="루미너스 장비 - 루미너스의원" 
+  description="프리미엄 피부과 루미너스의원의 하이엔드 의료 장비 라인업을 소개합니다."
+>
+  <PageBanner 
+    title_en="Medical Device" 
+    title_ko="루미너스 장비" 
+    description="루미너스의원 하이엔드 의료기기 소개"
+    subtitle="" 
+  />
+
+  <!-- DEVICE -->
+  <section class="py-16 md:py-24 px-5 md:px-10 bg-white">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 max-w-[1200px] mx-auto fade-up">
+      {devices.map((device) => (
+        <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+          <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary flex-col gap-3">
+            <i class={`fas ${device.icon}`}></i>
+          </div>
+          <div class="p-5">
+            <h4 class="text-[15px] font-bold mb-1">{device.name}</h4>
+            <p class="text-xs text-muted">{device.nameEn}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>루미너스 장비 - 루미너스의원</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="common.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#D4A017', dark: '#B8860B', light: '#F5D060' },
+        dark: { DEFAULT: '#1a1a1a', bg: '#111111' },
+        muted: { DEFAULT: '#888888', foreground: '#555555' },
+        surface: '#f5f5f0',
+      },
+      fontFamily: {
+        kr: ['Noto Sans KR', 'sans-serif'],
+        en: ['Playfair Display', 'serif'],
+      },
+    },
+  },
+}
+</script>
+</head>
+<body class="text-dark overflow-x-hidden">
+
+
+<!-- PAGE BANNER -->
+<section class="pt-40 pb-14 md:pt-48 md:pb-20 px-5 md:px-10 bg-dark text-center">
+  <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Medical Device</div>
+  <h2 class="font-en text-[24px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">Medical Device</em></h2>
+  <p class="text-[14px] md:text-[15px] text-white/50 mt-3.5">루미너스의원 하이엔드 의료기기 소개</p>
+</section>
+
+<!-- DEVICE -->
+<section class="py-16 md:py-24 px-5 md:px-10 bg-white">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 max-w-[1200px] mx-auto fade-up">
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-wave-square"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">울쎄라</h4><p class="text-xs text-muted">Ultherapy</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-broadcast-tower"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">올리지오</h4><p class="text-xs text-muted">Oligio</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-bolt"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">인모드</h4><p class="text-xs text-muted">InMode</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-crosshairs"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">슈링크 유니버스</h4><p class="text-xs text-muted">Shurink Universe</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-sun"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">피코슈어</h4><p class="text-xs text-muted">PicoSure</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-microscope"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">포텐자</h4><p class="text-xs text-muted">Potenza</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-magic"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">소프웨이브</h4><p class="text-xs text-muted">Sofwave</p></div>
+    </div>
+    <div class="bg-surface rounded-xl overflow-hidden text-center hover:-translate-y-1 hover:shadow-md transition-all border border-gray-100">
+      <div class="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-[#fafafa] to-[#f0f0f0] text-5xl text-primary"><i class="fas fa-star"></i></div>
+      <div class="p-5"><h4 class="text-[15px] font-bold mb-1">젠틀맥스 프로</h4><p class="text-xs text-muted">GentleMax Pro+</p></div>
+    </div>
+  </div>
+</section>
+
+
+
+<script src="common.js"></script>
+</body>
+</html>

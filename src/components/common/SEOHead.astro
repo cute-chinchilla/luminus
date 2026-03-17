@@ -1,0 +1,66 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonical?: string;
+  type?: 'website' | 'article';
+}
+
+const { 
+  title, 
+  description, 
+  image = '/favicon.svg', // Default OG image
+  canonical,
+  type = 'website'
+} = Astro.props;
+
+const siteName = '루미너스의원';
+const url = Astro.url.href;
+const canonicalURL = canonical || url;
+
+// Construct JSON-LD
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": type === 'article' ? "Article" : "LocalBusiness",
+  "name": siteName,
+  "description": description,
+  "url": url,
+  "image": image.startsWith('http') ? image : `${Astro.url.origin}${image}`,
+  ...(type === 'article' ? {} : {
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "해돋이로 160-15, 206-211호",
+      "addressLocality": "인천 연수구",
+      "addressRegion": "송도동",
+      "postalCode": "21997",
+      "addressCountry": "KR"
+    },
+    "telephone": "032-833-9909"
+  })
+};
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{canonicalURL && <link rel="canonical" href={canonicalURL} />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image.startsWith('http') ? image : `${Astro.url.origin}${image}`} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={image.startsWith('http') ? image : `${Astro.url.origin}${image}`} />
+
+<!-- JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

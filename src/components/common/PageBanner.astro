@@ -1,0 +1,17 @@
+---
+interface Props {
+  subtitle: string;
+  title_en: string;
+  title_ko: string;
+  description: string;
+}
+
+const { subtitle, title_en, title_ko, description } = Astro.props;
+---
+
+<section class="pt-40 pb-14 md:pt-48 md:pb-20 px-5 md:px-10 bg-dark text-center">
+  <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">{title_en}</div>
+  <h2 class="font-en text-[24px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">{title_en.toUpperCase()}</em></h2>
+  <p class="text-[14px] md:text-[15px] text-white/50 mt-3.5">{description}</p>
+  {subtitle && <p class="text-xs md:text-sm text-white/40 mt-1">{subtitle}</p>}
+</section>

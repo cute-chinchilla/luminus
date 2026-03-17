@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전후사진 - 루미너스의원</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="common.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#D4A017', dark: '#B8860B', light: '#F5D060' },
+        dark: { DEFAULT: '#1a1a1a', bg: '#111111' },
+        muted: { DEFAULT: '#888888', foreground: '#555555' },
+        surface: '#f5f5f0',
+      },
+      fontFamily: {
+        kr: ['Noto Sans KR', 'sans-serif'],
+        en: ['Playfair Display', 'serif'],
+      },
+    },
+  },
+}
+</script>
+</head>
+<body class="text-dark overflow-x-hidden">
+
+<!-- PAGE BANNER -->
+<section class="pt-40 pb-14 md:pt-48 md:pb-20 px-5 md:px-10 bg-dark text-center">
+  <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Before &amp; After</div>
+  <h2 class="font-en text-[24px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">B &amp; A</em></h2>
+  <p class="text-[14px] md:text-[15px] text-white/50 mt-3.5">아름다운 변화를 확인해보세요</p>
+</section>
+
+<!-- BEFORE & AFTER -->
+<section class="py-16 md:py-24 px-5 md:px-10 bg-dark text-white">
+  <div class="grid grid-cols-2 max-w-[800px] mx-auto rounded-xl overflow-hidden fade-up">
+    <div class="aspect-[4/3] flex items-center justify-center bg-[#2a2a2a] font-en text-2xl font-bold tracking-[4px]">
+      <div class="text-center">
+        <div class="text-base font-bold tracking-[4px] mb-3">BEFORE</div>
+        <div class="opacity-40 text-sm leading-relaxed">시술 전 사진이<br>표시됩니다</div>
+      </div>
+    </div>
+    <div class="aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-primary-dark to-primary text-dark font-en text-2xl font-bold tracking-[4px]">
+      <div class="text-center">
+        <div class="text-base font-bold tracking-[4px] mb-3">AFTER</div>
+        <div class="opacity-35 text-sm leading-relaxed text-black/35">시술 후 사진이<br>표시됩니다</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="common.js"></script>
+</body>
+</html>

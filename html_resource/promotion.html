@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프로모션 - 루미너스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="common.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#D4A017', dark: '#B8860B', light: '#F5D060' },
+        dark: { DEFAULT: '#1a1a1a', bg: '#111111' },
+        muted: { DEFAULT: '#888888', foreground: '#555555' },
+        surface: '#f5f5f0',
+      },
+      fontFamily: {
+        kr: ['Noto Sans KR', 'sans-serif'],
+        en: ['Playfair Display', 'serif'],
+      },
+    },
+  },
+}
+</script>
+<style>
+.cat-btn { transition: all .2s ease; }
+.cat-btn.active { background: #D4A017; color: #1a1a1a; border-color: #D4A017; }
+.promo-card { transition: all .3s ease; }
+.promo-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+.promo-checkbox { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; border: 2px solid #d1d5db; border-radius: 4px; cursor: pointer; position: relative; flex-shrink: 0; transition: all .2s ease; }
+.promo-checkbox:checked { background: #1a1a1a; border-color: #D4A017; }
+.promo-checkbox:checked::after { content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; font-weight: bold; }
+
+.reservation-btn-fixed { position: fixed; bottom: 73px; left: 0; width: 100%; z-index: 998; }
+
+.bottomsheet-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.bottomsheet-overlay.open { opacity: 1; pointer-events: all; }
+.bottomsheet { position: fixed; bottom: 0; left: 0; width: 100%; max-height: 85vh; background: white; border-radius: 16px 16px 0 0; z-index: 2001; transform: translateY(100%); transition: transform .3s ease; display: flex; flex-direction: column; }
+.bottomsheet-overlay.open .bottomsheet { transform: translateY(0); }
+
+.booking-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 3000; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.booking-overlay.open { opacity: 1; pointer-events: all; }
+.booking-panel { position: fixed; bottom: 0; left: 0; width: 100%; max-height: 90vh; background: white; border-radius: 16px 16px 0 0; z-index: 3001; transform: translateY(100%); transition: transform .3s ease; display: flex; flex-direction: column; }
+.booking-overlay.open .booking-panel { transform: translateY(0); }
+</style>
+</head>
+<body class="text-dark overflow-x-hidden">
+
+<!-- PAGE BANNER -->
+<section class="pt-40 pb-14 md:pt-48 md:pb-20 px-5 md:px-10 bg-dark text-center">
+  <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Promotion</div>
+  <h2 class="font-en text-[24px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">Promotion</em></h2>
+  <p class="text-[14px] md:text-[15px] text-white/50 mt-3.5">루미너스의원의 다양한 혜택과 이벤트를 확인하세요</p>
+</section>
+
+<!-- CATEGORY TABS (전체 제거, 첫번째 카테고리 활성화) -->
+<section class="bg-white border-b border-gray-100 sticky top-[88px] md:top-[97px] z-[500]">
+  <div class="max-w-[1200px] mx-auto overflow-x-auto scrollbar-hide" style="-webkit-overflow-scrolling:touch">
+    <div class="flex gap-2 py-3 px-5 md:px-10 w-max min-w-full md:justify-center">
+      <button class="cat-btn active px-4 py-2 rounded-full text-[13px] font-medium border border-gray-200 bg-transparent whitespace-nowrap cursor-pointer" data-cat="sofwave">소프웨이브 런칭</button>
+      <button class="cat-btn px-4 py-2 rounded-full text-[13px] font-medium border border-gray-200 bg-transparent text-muted-foreground whitespace-nowrap cursor-pointer" data-cat="march">3월 이벤트</button>
+      <button class="cat-btn px-4 py-2 rounded-full text-[13px] font-medium border border-gray-200 bg-transparent text-muted-foreground whitespace-nowrap cursor-pointer" data-cat="first">첫방문 혜택</button>
+      <button class="cat-btn px-4 py-2 rounded-full text-[13px] font-medium border border-gray-200 bg-transparent text-muted-foreground whitespace-nowrap cursor-pointer" data-cat="botox">보톡스/윤곽주사</button>
+      <button class="cat-btn px-4 py-2 rounded-full text-[13px] font-medium border border-gray-200 bg-transparent text-muted-foreground whitespace-nowrap cursor-pointer" data-cat="lifting">리프팅</button>
+      <button class="cat-btn px-4 py-2 rounded-full text-[13px] font-medium border border-gray-200 bg-transparent text-muted-foreground whitespace-nowrap cursor-pointer" data-cat="filler">필러</button>
+      <button class="cat-btn px-4 py-2 rounded-full text-[13px] font-medium border border-gray-200 bg-transparent text-muted-foreground whitespace-nowrap cursor-pointer" data-cat="skin">스킨케어</button>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICE BANNER -->
+<section class="bg-dark text-center py-4 px-5">
+  <p class="text-[13px] text-white/70"><i class="fas fa-info-circle text-primary mr-1.5"></i>모든 가격은 <span class="text-primary font-bold">VAT 포함가</span>이며, 결제는 내원 시 진행됩니다.</p>
+</section>
+
+<!-- PRODUCT LIST -->
+<section class="py-10 md:py-16 px-5 md:px-10 bg-surface min-h-screen pb-40">
+  <div class="max-w-[1200px] mx-auto">
+
+    <!-- Sort & Count -->
+    <div class="flex items-center justify-between mb-6 fade-up">
+      <p class="text-sm text-muted"><span class="text-dark font-bold" id="itemCount">5</span>개의 프로모션</p>
+      <div class="flex items-center gap-3 text-[13px] text-muted">
+        <button class="sort-btn cursor-pointer bg-transparent border-none text-dark font-medium" data-sort="popular">인기순</button>
+        <span class="text-gray-300">|</span>
+        <button class="sort-btn cursor-pointer bg-transparent border-none text-muted hover:text-dark transition-colors" data-sort="low">낮은가격순</button>
+        <span class="text-gray-300">|</span>
+        <button class="sort-btn cursor-pointer bg-transparent border-none text-muted hover:text-dark transition-colors" data-sort="high">높은가격순</button>
+      </div>
+    </div>
+
+    <!-- List -->
+    <div class="flex flex-col gap-3" id="promoGrid">
+
+      <!-- 소프웨이브 50펄스 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="sofwave" data-price="490000" data-name="[소프웨이브 런칭] 50펄스">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-primary text-dark text-[10px] font-bold px-2 py-0.5 rounded mb-2">소프웨이브 런칭</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[소프웨이브 런칭] 50펄스</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">입가 / 눈가 / 목</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">490,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">750,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">35% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="490000" data-name="[소프웨이브 런칭] 50펄스">
+        </div>
+      </div>
+
+      <!-- 소프웨이브 100펄스 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="sofwave" data-price="990000" data-name="[소프웨이브 런칭] 100펄스">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-primary text-dark text-[10px] font-bold px-2 py-0.5 rounded mb-2">소프웨이브 런칭</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[소프웨이브 런칭] 100펄스</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">입가 / 눈가 / 목</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">990,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">1,450,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">32% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="990000" data-name="[소프웨이브 런칭] 100펄스">
+        </div>
+      </div>
+
+      <!-- 소프웨이브 200펄스 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="sofwave" data-price="1770000" data-name="[소프웨이브 런칭] 200펄스">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-primary text-dark text-[10px] font-bold px-2 py-0.5 rounded mb-2">소프웨이브 런칭</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[소프웨이브 런칭] 200펄스</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">볼, 턱라인 중점</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">1,770,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">2,850,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">38% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="1770000" data-name="[소프웨이브 런칭] 200펄스">
+        </div>
+      </div>
+
+      <!-- 소프웨이브 300펄스 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="sofwave" data-price="2540000" data-name="[소프웨이브 런칭] 300펄스">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-primary text-dark text-[10px] font-bold px-2 py-0.5 rounded mb-2">소프웨이브 런칭</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[소프웨이브 런칭] 300펄스</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">얼굴 전체 + 목</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">2,540,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">4,250,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">40% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="2540000" data-name="[소프웨이브 런칭] 300펄스">
+        </div>
+      </div>
+
+      <!-- 울쎄라 + 소프웨이브 패키지 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="sofwave" data-price="2790000" data-name="[소프웨이브 런칭] 울쎄라 + 소프웨이브">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-primary text-dark text-[10px] font-bold px-2 py-0.5 rounded mb-2">BEST 패키지</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[소프웨이브 런칭] 울쎄라 + 소프웨이브</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-1">울쎄라 300샷 + 소프웨이브 200펄스</p>
+            <p class="text-[10px] text-primary mb-2">※ 엘라비에 리투오 추가 시 1,000,000원 → 650,000원</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">2,790,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">4,000,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">30% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="2790000" data-name="[소프웨이브 런칭] 울쎄라 + 소프웨이브">
+        </div>
+      </div>
+
+      <!-- 3월 이벤트: 울쎄라 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="march" data-price="1990000" data-name="[3월 이벤트] 울쎄라 300샷" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-dark text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">3월 이벤트</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[3월 이벤트] 울쎄라 300샷</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">얼굴 전체 리프팅</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">1,990,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">2,800,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">29% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="1990000" data-name="[3월 이벤트] 울쎄라 300샷">
+        </div>
+      </div>
+
+      <!-- 3월 이벤트: 올리지오 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="march" data-price="590000" data-name="[3월 이벤트] 올리지오 300샷" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-dark text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">3월 이벤트</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[3월 이벤트] 올리지오 300샷</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">탄력 개선, 주름 완화</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">590,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">800,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">26% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="590000" data-name="[3월 이벤트] 올리지오 300샷">
+        </div>
+      </div>
+
+      <!-- 3월 이벤트: 인모드 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="march" data-price="390000" data-name="[3월 이벤트] 인모드 FX + FORMA" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-dark text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">3월 이벤트</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[3월 이벤트] 인모드 FX + FORMA</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">리프팅 + 탄력</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">390,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">550,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">29% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="390000" data-name="[3월 이벤트] 인모드 FX + FORMA">
+        </div>
+      </div>
+
+      <!-- 첫방문 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="first" data-price="99000" data-name="[첫방문] 피부 관리 프로그램" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-primary text-dark text-[10px] font-bold px-2 py-0.5 rounded mb-2">첫방문 혜택</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[첫방문] 피부 관리 프로그램</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">기간 : ~2026.12.31 (1회, VAT 포함)</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">99,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">200,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">50% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="99000" data-name="[첫방문] 피부 관리 프로그램">
+        </div>
+      </div>
+
+      <!-- 보톡스: 국산 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="botox" data-price="39000" data-name="[보톡스] 국산 보톡스 50U" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-[#7c3aed] text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">보톡스</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[보톡스] 국산 보톡스 50U</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">이마 / 미간 / 눈가 택 1</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">39,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">60,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">35% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="39000" data-name="[보톡스] 국산 보톡스 50U">
+        </div>
+      </div>
+
+      <!-- 보톡스: 미국산 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="botox" data-price="99000" data-name="[보톡스] 보톡스(미국) 50U" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-[#7c3aed] text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">보톡스</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[보톡스] 보톡스(미국) 50U</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">이마 / 미간 / 눈가 택 1</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">99,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">150,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">34% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="99000" data-name="[보톡스] 보톡스(미국) 50U">
+        </div>
+      </div>
+
+      <!-- 리프팅: 슈링크 유니버스 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="lifting" data-price="290000" data-name="[리프팅] 슈링크 유니버스 300샷" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-dark text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">리프팅</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[리프팅] 슈링크 유니버스 300샷</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">얼굴 전체 리프팅</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">290,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">400,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">28% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="290000" data-name="[리프팅] 슈링크 유니버스 300샷">
+        </div>
+      </div>
+
+      <!-- 필러 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="filler" data-price="190000" data-name="[필러] HA 필러 1cc" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-[#e91e63] text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">필러</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[필러] HA 필러 1cc</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">팔자주름 / 입술 / 턱 끝 택 1</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">190,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">300,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">37% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="190000" data-name="[필러] HA 필러 1cc">
+        </div>
+      </div>
+
+      <!-- 스킨케어: 물광주사 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="skin" data-price="150000" data-name="[스킨케어] 물광주사" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-[#1976d2] text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">스킨케어</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[스킨케어] 물광주사</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">수분 보충, 피부 톤 개선</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">150,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">250,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">40% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="150000" data-name="[스킨케어] 물광주사">
+        </div>
+      </div>
+
+      <!-- 스킨케어: 스킨부스터 -->
+      <div class="promo-card bg-white rounded-xl overflow-hidden border border-gray-100 fade-up" data-cat="skin" data-price="250000" data-name="[스킨케어] 쥬베룩 스킨부스터" style="display:none">
+        <div class="flex items-center p-4 md:p-5 gap-4">
+          <div class="flex-1 min-w-0">
+            <span class="inline-block bg-[#1976d2] text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2">스킨케어</span>
+            <h4 class="text-[14px] md:text-[15px] font-bold text-dark mb-1 leading-snug">[스킨케어] 쥬베룩 스킨부스터</h4>
+            <p class="text-[12px] md:text-[13px] text-muted mb-2.5">콜라겐 생성, 피부 재생</p>
+            <div class="flex items-baseline gap-2">
+              <span class="text-[18px] md:text-[20px] font-black text-primary">250,000<span class="text-xs font-bold">원</span></span>
+              <span class="text-[12px] text-muted line-through">400,000원</span>
+              <span class="text-[11px] text-red-500 font-bold ml-1">38% OFF</span>
+            </div>
+          </div>
+          <input type="checkbox" class="promo-checkbox" data-price="250000" data-name="[스킨케어] 쥬베룩 스킨부스터">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="py-14 md:py-20 px-5 md:px-10 bg-dark text-center">
+  <div class="max-w-[600px] mx-auto fade-up">
+    <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-3">Reservation</div>
+    <h3 class="text-[22px] md:text-[28px] font-bold text-white leading-snug mb-4">상담 및 예약 안내</h3>
+    <p class="text-[15px] text-white/50 mb-8 leading-relaxed">프로모션 관련 자세한 상담은<br>전화 또는 카카오톡으로 문의해 주세요.</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="tel:032-833-9909" class="inline-flex items-center justify-center gap-2 py-4 px-8 bg-primary text-dark text-sm font-bold tracking-widest no-underline hover:bg-primary-light transition-all">
+        <i class="fas fa-phone-alt"></i> 032.833.9909
+      </a>
+      <a href="#" class="inline-flex items-center justify-center gap-2 py-4 px-8 border border-white/30 text-white text-sm font-bold tracking-widest no-underline hover:bg-white/10 transition-all">
+        <i class="fas fa-comment-dots"></i> 카카오톡 상담
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 예약상담하기 고정 버튼 (하단 네비 위) -->
+<div class="reservation-btn-fixed">
+  <button id="openReservationSheet" class="w-full py-4 bg-dark text-primary text-[15px] font-bold border-none cursor-pointer flex items-center justify-center gap-2 hover:bg-dark-bg transition-colors tracking-wider">
+    <i class="fas fa-calendar-plus"></i> 예약상담하기
+  </button>
+</div>
+
+<!-- 바텀시트: 선택한 프로모션 목록 -->
+<div class="bottomsheet-overlay" id="reservationSheet">
+  <div class="bottomsheet">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
+      <span></span>
+      <button id="closeReservationSheet" class="text-[15px] text-muted bg-transparent border-none cursor-pointer font-medium">닫기</button>
+    </div>
+    <div class="flex-1 overflow-y-auto px-5 py-6" id="selectedPromoList">
+      <p class="text-muted text-[14px]">찜한시술 없음</p>
+    </div>
+    <div class="border-t border-gray-200 flex-shrink-0"></div>
+    <div class="px-5 py-4 flex-shrink-0">
+      <div class="flex items-center justify-between mb-1">
+        <div>
+          <span class="text-[18px] font-black">합계</span><span class="text-[13px] text-muted">(VAT 포함)</span>
+        </div>
+        <span class="text-[22px] font-black text-primary" id="totalPrice">0<span class="text-[15px]">원</span></span>
+      </div>
+      <p class="text-[12px] text-muted mb-4">* 결제는 내원 시 진행됩니다.</p>
+      <button id="openBookingForm" class="w-full py-4 bg-dark text-primary text-[15px] font-bold rounded-lg border-none cursor-pointer hover:bg-dark-bg transition-colors tracking-wider">
+        찜한 목록 예약하기
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 예약 폼 패널 -->
+<div class="booking-overlay" id="bookingOverlay">
+  <div class="booking-panel">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
+      <button id="backToSheet" class="text-[15px] text-muted bg-transparent border-none cursor-pointer font-medium">이전</button>
+      <button id="closeBooking" class="text-[15px] text-muted bg-transparent border-none cursor-pointer font-medium">닫기</button>
+    </div>
+    <div class="flex-1 overflow-y-auto px-5 py-6">
+      <h3 class="text-[18px] font-bold text-primary-dark mb-1">*필수 기입항목</h3>
+      <p class="text-[13px] text-muted mb-6">이벤트 참여에 필요한 필수 정보입니다.</p>
+
+      <div class="mb-5">
+        <label class="block text-[14px] font-bold text-dark mb-2">상품명</label>
+        <p class="text-[13px] text-dark" id="bookingProductNames">-</p>
+      </div>
+
+      <div class="mb-5">
+        <label class="block text-[14px] font-bold text-dark mb-2">희망예약일자</label>
+        <input type="date" id="bookingDate" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-[14px] text-muted bg-gray-50 outline-none focus:border-primary transition-colors" placeholder="예약일자를 선택해주세요">
+      </div>
+
+      <div class="mb-5">
+        <label class="block text-[14px] font-bold text-dark mb-2">희망예약시간</label>
+        <select id="bookingTime" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-[14px] text-muted bg-gray-50 outline-none focus:border-primary transition-colors">
+          <option value="">시간을 선택해주세요</option>
+          <option value="09:30">09:30</option>
+          <option value="10:00">10:00</option>
+          <option value="10:30">10:30</option>
+          <option value="11:00">11:00</option>
+          <option value="11:30">11:30</option>
+          <option value="12:00">12:00</option>
+          <option value="13:00">13:00</option>
+          <option value="13:30">13:30</option>
+          <option value="14:00">14:00</option>
+          <option value="14:30">14:30</option>
+          <option value="15:00">15:00</option>
+          <option value="15:30">15:30</option>
+          <option value="16:00">16:00</option>
+          <option value="16:30">16:30</option>
+          <option value="17:00">17:00</option>
+          <option value="17:30">17:30</option>
+          <option value="18:00">18:00</option>
+          <option value="18:30">18:30</option>
+          <option value="19:00">19:00</option>
+          <option value="19:30">19:30</option>
+        </select>
+      </div>
+
+      <div class="mb-5">
+        <label class="block text-[14px] font-bold text-dark mb-2">예약 내용</label>
+        <textarea id="bookingContent" rows="4" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-[14px] bg-gray-50 outline-none focus:border-primary transition-colors resize-none" placeholder="예약 내용을 입력해주세요"></textarea>
+      </div>
+
+      <div class="mb-5">
+        <label class="block text-[14px] font-bold text-dark mb-2">이름</label>
+        <input type="text" id="bookingName" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-[14px] bg-gray-50 outline-none focus:border-primary transition-colors" placeholder="이름을 입력해주세요">
+      </div>
+
+      <div class="mb-8">
+        <label class="block text-[14px] font-bold text-dark mb-2">연락처</label>
+        <input type="tel" id="bookingPhone" class="w-full border border-gray-200 rounded-lg px-4 py-3 text-[14px] bg-gray-50 outline-none focus:border-primary transition-colors" placeholder="연락처를 입력해주세요">
+      </div>
+
+      <button id="submitBooking" class="w-full py-4 bg-dark text-primary text-[15px] font-bold rounded-lg border-none cursor-pointer hover:bg-dark-bg transition-colors tracking-wider mb-4">
+        예약하기
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="common.js"></script>
+<script>
+var catBtns = document.querySelectorAll('.cat-btn');
+var cards = document.querySelectorAll('.promo-card');
+var countEl = document.getElementById('itemCount');
+
+function filterByCategory(cat) {
+  var visible = 0;
+  cards.forEach(function(card) {
+    if (card.dataset.cat === cat) {
+      card.style.display = '';
+      visible++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  countEl.textContent = visible;
+}
+
+catBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    catBtns.forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    filterByCategory(btn.dataset.cat);
+  });
+});
+
+// Sort
+var sortBtns = document.querySelectorAll('.sort-btn');
+var grid = document.getElementById('promoGrid');
+
+sortBtns.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    sortBtns.forEach(function(b) { b.classList.remove('text-dark', 'font-medium'); b.classList.add('text-muted'); });
+    btn.classList.remove('text-muted'); btn.classList.add('text-dark', 'font-medium');
+    var sort = btn.dataset.sort;
+    var arr = Array.from(cards);
+    if (sort === 'low') arr.sort(function(a, b) { return parseInt(a.dataset.price) - parseInt(b.dataset.price); });
+    else if (sort === 'high') arr.sort(function(a, b) { return parseInt(b.dataset.price) - parseInt(a.dataset.price); });
+    arr.forEach(function(card) { grid.appendChild(card); });
+  });
+});
+
+function getSelectedItems() {
+  var items = [];
+  document.querySelectorAll('.promo-checkbox:checked').forEach(function(cb) {
+    items.push({ name: cb.dataset.name, price: parseInt(cb.dataset.price) });
+  });
+  return items;
+}
+
+function formatPrice(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function updateBottomSheet() {
+  var items = getSelectedItems();
+  var listEl = document.getElementById('selectedPromoList');
+  var totalEl = document.getElementById('totalPrice');
+
+  if (items.length === 0) {
+    listEl.innerHTML = '<p class="text-muted text-[14px]">찜한시술 없음</p>';
+    totalEl.innerHTML = '0<span class="text-[15px]">원</span>';
+    return;
+  }
+
+  var total = 0;
+  var html = '';
+  items.forEach(function(item, idx) {
+    total += item.price;
+    html += '<div class="flex items-center justify-between py-3' + (idx < items.length - 1 ? ' border-b border-gray-100' : '') + '">' +
+      '<span class="text-[14px] text-dark font-medium">' + item.name + '</span>' +
+      '<span class="text-[14px] font-bold text-dark">' + formatPrice(item.price) + '원</span>' +
+    '</div>';
+  });
+  listEl.innerHTML = html;
+  totalEl.innerHTML = formatPrice(total) + '<span class="text-[15px]">원</span>';
+}
+
+// 예약상담하기 바텀시트
+var reservationSheet = document.getElementById('reservationSheet');
+document.getElementById('openReservationSheet').addEventListener('click', function() {
+  updateBottomSheet();
+  reservationSheet.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('closeReservationSheet').addEventListener('click', function() {
+  reservationSheet.classList.remove('open');
+  document.body.style.overflow = '';
+});
+reservationSheet.addEventListener('click', function(e) {
+  if (e.target === reservationSheet) {
+    reservationSheet.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// 예약 폼
+var bookingOverlay = document.getElementById('bookingOverlay');
+document.getElementById('openBookingForm').addEventListener('click', function() {
+  var items = getSelectedItems();
+  if (items.length === 0) {
+    alert('시술을 선택해주세요.');
+    return;
+  }
+  var names = items.map(function(i) { return i.name; }).join(', ');
+  document.getElementById('bookingProductNames').textContent = names;
+  reservationSheet.classList.remove('open');
+  bookingOverlay.classList.add('open');
+});
+document.getElementById('backToSheet').addEventListener('click', function() {
+  bookingOverlay.classList.remove('open');
+  reservationSheet.classList.add('open');
+});
+document.getElementById('closeBooking').addEventListener('click', function() {
+  bookingOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+});
+bookingOverlay.addEventListener('click', function(e) {
+  if (e.target === bookingOverlay) {
+    bookingOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+document.getElementById('submitBooking').addEventListener('click', function() {
+  var name = document.getElementById('bookingName').value.trim();
+  var phone = document.getElementById('bookingPhone').value.trim();
+  var date = document.getElementById('bookingDate').value;
+  if (!name || !phone || !date) {
+    alert('필수 항목을 모두 입력해주세요.');
+    return;
+  }
+  alert('예약 상담 신청이 완료되었습니다.\n확인 후 연락드리겠습니다.');
+  bookingOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+});
+</script>
+</body>
+</html>

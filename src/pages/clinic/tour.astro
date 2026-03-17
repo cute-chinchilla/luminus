@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/common/PageBanner.astro';
+
+const galleries = [
+  { icon: 'fa-door-open', name: '로비 & 접수', bgClass: 'from-[#f5f0e8] to-[#ebe5d8]' },
+  { icon: 'fa-couch', name: '대기실', bgClass: 'from-[#eef2f5] to-[#dde4ea]' },
+  { icon: 'fa-comments', name: '상담실', bgClass: 'from-[#f0ede8] to-[#e3ded5]' },
+  { icon: 'fa-procedures', name: '시술실 1', bgClass: 'from-[#f5f5f0] to-[#eaeae0]' },
+  { icon: 'fa-procedures', name: '시술실 2', bgClass: 'from-[#eef0f2] to-[#dde1e6]' },
+  { icon: 'fa-laser-pointer', name: '레이저실', bgClass: 'from-[#f2efe8] to-[#e8e3d8]' },
+  { icon: 'fa-syringe', name: '주사실', bgClass: 'from-[#f0f2f5] to-[#dde2ea]' },
+  { icon: 'fa-bed', name: '회복실', bgClass: 'from-[#f5f0eb] to-[#ebe3d8]' },
+  { icon: 'fa-restroom', name: '파우더룸', bgClass: 'from-[#f0ede5] to-[#e5e0d2]' },
+];
+---
+
+<BaseLayout 
+  title="둘러보기 - 루미너스의원" 
+  description="프리미엄 피부과 루미너스의원의 쾌적하고 아늑한 병원 내부를 미리 둘러보세요."
+>
+  <PageBanner 
+    title_en="Tour" 
+    title_ko="둘러보기" 
+    description="루미너스의원 내부를 둘러보세요"
+    subtitle="" 
+  />
+
+  <!-- GALLERY -->
+  <section class="py-16 md:py-24 px-5 md:px-10 bg-white">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto">
+      {galleries.map((item) => (
+        <div class={`fade-up group relative overflow-hidden rounded-xl aspect-[4/3] bg-gradient-to-br ${item.bgClass} flex items-center justify-center cursor-pointer`}>
+          <div class="text-center">
+            <i class={`fas ${item.icon} text-5xl text-primary/30 mb-3 block`}></i>
+            <span class="text-sm font-medium text-dark/70">{item.name}</span>
+          </div>
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <i class="fas fa-search-plus text-white text-2xl"></i>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

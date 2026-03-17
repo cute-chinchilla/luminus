@@ -1,0 +1,107 @@
+---
+const currentPath = Astro.url.pathname;
+const isIndex = currentPath === '/' || currentPath === '/index.html';
+const locationHref = isIndex ? '#section-location' : '/clinic/location';
+
+const group1 = ['/clinic/doctors', '/clinic/tour', '/clinic/location', '/clinic/equipment', '/clinic/results'];
+const group2 = ['/lifting/ulthera', '/lifting/oligio', '/lifting/inmode'];
+
+const g1 = group1.some(path => currentPath.startsWith(path));
+const g2 = group2.some(path => currentPath.startsWith(path));
+
+const dc = 'block py-3 px-5 md:px-5 px-3.5 text-white/70 text-[13px] md:text-[13px] text-xs whitespace-nowrap no-underline hover:text-primary transition-colors';
+const ac = 'block py-3 px-5 md:px-5 px-3.5 text-primary text-[13px] md:text-[13px] text-xs whitespace-nowrap no-underline hover:text-primary transition-colors';
+
+const user = await Astro.locals.currentUser();
+---
+
+<header class="fixed top-0 left-0 w-full z-[1000] bg-black/85 backdrop-blur-md">
+  <div class="relative flex items-center justify-center max-w-[1400px] mx-auto py-3.5 px-10 md:px-10 px-5">
+    <div onclick="openMobileNav()" class="absolute left-5 md:left-10 top-1/2 -translate-y-1/2 flex flex-col gap-[5px] cursor-pointer">
+      <span class="w-6 h-0.5 bg-white block"></span>
+      <span class="w-6 h-0.5 bg-white block"></span>
+      <span class="w-6 h-0.5 bg-white block"></span>
+    </div>
+    
+    <a href="/" class="font-en text-2xl md:text-[28px] font-bold text-white tracking-[6px] uppercase no-underline">
+      LUMIN<span class="text-primary">U</span>S
+      <span class="block font-kr text-[10px] tracking-[4px] text-muted text-center mt-0.5">CLINIC</span>
+    </a>
+    
+    <div class="absolute right-5 md:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 md:gap-6">
+      <div class="hidden md:flex items-center gap-4 text-[13px]">
+        {user ? (
+          <a href="/mypage" class="text-white/80 hover:text-white no-underline transition-colors flex items-center gap-1.5"><i class="fas fa-user-circle"></i> 마이페이지</a>
+        ) : (
+          <a href="/auth/login" class="text-white/80 hover:text-white no-underline transition-colors flex items-center gap-1.5"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+        )}
+      </div>
+      <a href={locationHref} class="text-primary text-[22px] no-underline">
+        <i class="fas fa-map-marker-alt"></i>
+      </a>
+    </div>
+  </div>
+  
+  <nav class="border-t border-white/[0.08] overflow-x-auto overflow-y-hidden scrollbar-hide" style="-webkit-overflow-scrolling:touch">
+    <ul class="flex justify-center max-w-[1400px] mx-auto w-max min-w-full list-none p-0 md:px-0 px-2.5">
+      <li class="relative">
+        <a href="#" data-dropdown="dropdownMenu" class={g1 ? ac : dc}>루미너스의원 <i class="fas fa-chevron-down text-[9px] ml-0.5 opacity-50"></i></a>
+        <div class="nav-dropdown" id="dropdownMenu">
+          <a href="/clinic/doctors">의료진 소개</a>
+          <a href="/clinic/tour">둘러보기</a>
+          <a href="/clinic/location">오시는 길</a>
+          <a href="/clinic/equipment">루미너스 장비</a>
+          <a href="/clinic/results">전후사진</a>
+        </div>
+      </li>
+      <li class="relative">
+        <a href="#" data-dropdown="dropdownMenu2" class={g2 ? ac : dc}>리프팅 센터 <i class="fas fa-chevron-down text-[9px] ml-0.5 opacity-50"></i></a>
+        <div class="nav-dropdown" id="dropdownMenu2">
+          <a href="/lifting/ulthera">울쎄라</a>
+          <a href="/lifting/oligio">올리지오</a>
+          <a href="/lifting/inmode">인모드</a>
+        </div>
+      </li>
+      <li><a href="#" class={dc}>피부</a></li>
+      <li><a href="#" class={dc}>쁘띠</a></li>
+      <li><a href="#" class={dc}>바디</a></li>
+      <li><a href="#" class={dc}>여드름 · 모공</a></li>
+      <li><a href="#" class={dc}>제모</a></li>
+      <li><a href="#" class={dc}>수액 · 예방접종</a></li>
+      <li><a href="/notice" class={dc}>공지사항</a></li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const dropdownTriggers = document.querySelectorAll('[data-dropdown]');
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+    dropdownTriggers.forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const menuId = trigger.getAttribute('data-dropdown');
+        const menu = document.getElementById(menuId!);
+        
+        dropdowns.forEach(d => {
+          if (d.id !== menuId) d.classList.remove('open');
+        });
+        
+        if (menu) {
+          const rect = trigger.getBoundingClientRect();
+          menu.style.top = `${rect.bottom}px`;
+          menu.style.left = `${rect.left}px`;
+          menu.classList.toggle('open');
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('[data-dropdown]') && !target.closest('.nav-dropdown')) {
+        dropdowns.forEach(d => d.classList.remove('open'));
+      }
+    });
+  });
+</script>

@@ -1,0 +1,117 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/common/PageBanner.astro';
+import { getDB } from '@/lib/db';
+import type { Notice } from '@/lib/types';
+import { formatDate } from '@/lib/format';
+
+const DB = getDB(Astro.locals);
+
+// Get category filter from URL
+const url = new URL(Astro.request.url);
+const currentCategory = url.searchParams.get('category') || 'all';
+
+// Build query
+let query = 'SELECT * FROM notices WHERE is_active = 1';
+const params: any[] = [];
+
+if (currentCategory !== 'all') {
+  query += ' AND category = ?';
+  params.push(currentCategory);
+}
+
+query += ' ORDER BY created_at DESC';
+
+const { results } = await DB.prepare(query).bind(...params).all();
+const notices = results as unknown as Notice[];
+
+const categories = [
+  { id: 'all', name: '전체' },
+  { id: 'notice', name: '공지사항' },
+  { id: 'event', name: '이벤트' }
+];
+---
+
+<BaseLayout 
+  title="공지 및 이벤트 - 루미너스의원" 
+  description="루미너스의원의 새로운 소식과 다양한 이벤트를 전해드립니다."
+>
+  <PageBanner 
+    title_en="Notice & Event" 
+    title_ko="공지 및 이벤트" 
+    description="루미너스의원의 새로운 소식과 혜택을 확인하세요"
+  />
+
+  <section class="py-16 md:py-24 px-5 md:px-10 bg-white min-h-screen">
+    <div class="max-w-[1200px] mx-auto">
+      <!-- Category Tabs -->
+      <div class="flex justify-center gap-3 mb-12 md:mb-16">
+        {categories.map((cat) => (
+          <a
+            href={cat.id === 'all' ? '/notice' : `/notice?category=${cat.id}`}
+            class={`px-6 py-2.5 rounded-full text-[14px] font-medium border transition-all ${
+              currentCategory === cat.id
+                ? 'bg-primary text-dark border-primary shadow-lg shadow-primary/20'
+                : 'bg-transparent text-muted border-gray-200 hover:border-dark'
+            }`}
+          >
+            {cat.name}
+          </a>
+        ))}
+      </div>
+
+      <!-- List -->
+      {notices.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          {notices.map((item) => (
+            <a href={`/notice/${item.id}`} class="group no-underline block fade-up">
+              <div class="relative aspect-[16/10] overflow-hidden rounded-2xl mb-5 bg-surface">
+                {item.thumbnail_url ? (
+                  <img 
+                    src={item.thumbnail_url} 
+                    alt={item.title} 
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center">
+                    <i class="fas fa-image text-gray-200 text-5xl"></i>
+                  </div>
+                )}
+                <div class="absolute top-4 left-4">
+                  <span class={`px-3 py-1 text-[11px] font-bold rounded-full ${
+                    item.category === 'event' ? 'bg-primary text-dark' : 'bg-dark text-white'
+                  }`}>
+                    {item.category === 'event' ? 'EVENT' : 'NOTICE'}
+                  </span>
+                </div>
+              </div>
+              <div class="px-2">
+                <h4 class="text-[17px] md:text-[19px] font-bold text-dark mb-2.5 line-clamp-2 group-hover:text-primary transition-colors leading-snug">
+                  {item.title}
+                </h4>
+                <p class="text-[13px] text-muted flex items-center">
+                  <i class="far fa-calendar-alt mr-1.5"></i>
+                  {formatDate(item.created_at)}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="py-32 text-center text-muted border-y border-gray-100 italic">
+          등록된 게시글이 없습니다.
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .fade-up {
+    animation: fadeUp 0.8s ease backwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

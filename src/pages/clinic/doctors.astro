@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/common/PageBanner.astro';
+import Philosophy from '@/components/home/Philosophy.astro';
+import { getDB } from '@/lib/db';
+import type { Doctor } from '@/lib/types';
+
+const DB = getDB(Astro.locals);
+const { results } = await DB.prepare('SELECT * FROM doctors WHERE is_active = 1 ORDER BY sort_order ASC').all();
+
+const doctorsData = (results as unknown as Doctor[]).map((doc, index) => {
+  // Cycle through background classes to maintain the original aesthetic variety
+  const bgClasses = [
+    'from-[#f0ede8] to-[#e5e0d8]',
+    'from-[#eef0f2] to-[#dde1e6]',
+    'from-[#f2efe8] to-[#e8e3d8]'
+  ];
+  
+  return {
+    ...doc,
+    credentials: JSON.parse(doc.credentials || '[]'),
+    bgClass: bgClasses[index % bgClasses.length]
+  };
+});
+---
+
+<BaseLayout 
+  title="의료진 소개 - 루미너스의원" 
+  description="최상의 결과를 약속하는 루미너스의원의 전문 의료진을 소개합니다."
+>
+  <!-- PAGE BANNER -->
+  <PageBanner 
+    title_en="Doctors" 
+    title_ko="의료진 소개" 
+    description="루미너스의원 의료진을 소개합니다"
+    subtitle="" 
+  />
+
+  <!-- PHILOSOPHY (LUMI 소개) -->
+  <Philosophy />
+
+  <!-- DOCTORS -->
+  <section class="py-16 md:py-24 px-5 md:px-10 bg-white">
+    <div class="text-center mb-14 fade-up">
+      <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Our Doctors</div>
+      <h3 class="font-en text-[28px] md:text-[38px] font-bold text-dark leading-snug">Luminus <em class="text-primary italic">Medical Staff</em></h3>
+      <p class="text-[15px] text-muted mt-3.5">전문 의료진이 최상의 결과를 약속합니다</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1100px] mx-auto">
+      {doctorsData.map((doc) => (
+        <div class="text-center fade-up group">
+          <div class={`relative w-full aspect-[3/4] bg-gradient-to-br ${doc.bgClass} rounded-2xl overflow-hidden mb-6 flex items-center justify-center`}>
+            {doc.image_url ? (
+              <img src={doc.image_url} alt={doc.name} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+            ) : (
+              <div class="text-center">
+                <i class="fas fa-user-md text-7xl text-primary/30 mb-4 block"></i>
+                <span class="text-sm text-muted">원장 사진</span>
+              </div>
+            )}
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <p class="text-white text-sm leading-relaxed whitespace-pre-line">{doc.specialty}</p>
+            </div>
+          </div>
+          <div class="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">{doc.title}</div>
+          <h4 class="text-xl font-bold mb-2">{doc.name}</h4>
+          <p class="text-sm text-muted leading-relaxed">
+            {doc.credentials.map((cred, i) => (
+              <>
+                {cred}
+                {i < doc.credentials.length - 1 && <br />}
+              </>
+            ))}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,8 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import CategoryManager from '@/components/admin/CategoryManager';
+---
+
+<AdminLayout title="프로모션 카테고리 관리 - 루미너스의원 관리자">
+  <CategoryManager client:load />
+</AdminLayout>

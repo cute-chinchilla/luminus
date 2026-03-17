@@ -1,0 +1,84 @@
+---
+import { getDB } from '@/lib/db';
+import type { HeroSlide } from '@/lib/types';
+
+const DB = getDB(Astro.locals);
+const { results } = await DB.prepare('SELECT * FROM hero_slides WHERE is_active = 1 ORDER BY sort_order ASC').all();
+const slides = results as unknown as HeroSlide[];
+---
+
+<style is:global>
+  [data-slide] { transition: opacity 1.2s ease; }
+  @keyframes heroZoom { 0%{transform:scale(1.05)} 100%{transform:scale(1.15)} }
+  .hero-zoom { animation: heroZoom 8s ease-in-out infinite alternate; }
+</style>
+
+<section class="relative h-screen overflow-hidden bg-dark">
+  <div class="relative w-full h-full">
+    {slides.map((slide, index) => (
+      <div 
+        class={`absolute inset-0 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} 
+        data-slide={index}
+      >
+        <div class="absolute inset-0 bg-dark">
+          {slide.image_url ? (
+            <img src={slide.image_url} class="w-full h-full object-cover hero-zoom" alt={slide.title} />
+          ) : (
+             <div class="w-full h-full bg-gradient-to-br from-[#2c2c2c] to-[#1a1a1a]"></div>
+          )}
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/65 to-black/20 z-[1]"></div>
+        <div class="absolute bottom-[18%] left-[8%] md:left-[8%] left-[5%] z-[2] max-w-[600px]">
+          <p class="text-base md:text-base text-[13px] text-white/70 mb-3 tracking-wide">{slide.subtitle}</p>
+          <h2 class="font-en text-[30px] md:text-5xl font-bold text-white leading-[1.15] mb-4 tracking-wide whitespace-pre-line">{slide.title}</h2>
+          <p class="text-[15px] text-white/70 mb-9 leading-relaxed">{slide.description}</p>
+          <a href="/promotion" class="inline-block py-4 px-10 bg-primary text-dark text-sm font-bold tracking-widest no-underline hover:bg-primary-light hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(212,160,23,0.3)] transition-all">바로 예약하기</a>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <div class="absolute bottom-[8%] left-1/2 -translate-x-1/2 z-[2] flex gap-2.5" id="heroDots">
+    {slides.map((_, index) => (
+      <span 
+        class={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all ${index === 0 ? 'bg-primary scale-[1.3]' : 'bg-white/30'}`} 
+        data-dot={index}
+      ></span>
+    ))}
+  </div>
+</section>
+
+<script>
+  window.addEventListener('load', () => {
+    const slides = document.querySelectorAll('[data-slide]') as NodeListOf<HTMLElement>;
+    const dots = document.querySelectorAll('[data-dot]') as NodeListOf<HTMLElement>;
+    let current = 0;
+    let interval: number;
+
+    if (!slides.length) return;
+
+    function goToSlide(n: number) {
+      if (slides[current]) slides[current].style.opacity = '0';
+      if (dots[current]) dots[current].className = 'w-2.5 h-2.5 rounded-full bg-white/30 cursor-pointer transition-all';
+      
+      current = n;
+      
+      if (slides[current]) slides[current].style.opacity = '1';
+      if (dots[current]) dots[current].className = 'w-2.5 h-2.5 rounded-full bg-primary scale-[1.3] cursor-pointer transition-all';
+    }
+
+    function startSlider() { 
+      interval = window.setInterval(() => goToSlide((current + 1) % slides.length), 5000); 
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        clearInterval(interval);
+        goToSlide(parseInt(dot.dataset.dot || '0'));
+        startSlider();
+      });
+    });
+
+    startSlider();
+  });
+</script>

@@ -1,0 +1,47 @@
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageBanner from '@/components/common/PageBanner.astro';
+import BeforeAfterCard from '@/components/common/BeforeAfterCard.astro';
+import { getDB } from '@/lib/db';
+import type { BeforeAfter } from '@/lib/types';
+
+const DB = getDB(Astro.locals);
+const items = await DB.prepare(`
+    SELECT * FROM before_after 
+    WHERE is_active = 1 
+    ORDER BY sort_order ASC, created_at DESC
+`).all<BeforeAfter>();
+---
+
+<BaseLayout 
+  title="전후사진 - 루미너스의원" 
+  description="아름다운 변화를 확인해보세요. 루미너스의원의 전후사진을 보여드립니다."
+>
+  <PageBanner 
+    title_en="Before & After" 
+    title_ko="전후사진" 
+    description="아름다운 변화를 확인해보세요"
+    subtitle="" 
+  />
+
+  <!-- BEFORE & AFTER -->
+  <section class="py-16 md:py-24 px-5 md:px-10 bg-dark text-white">
+    <div class="max-w-[1200px] mx-auto">
+        {items.results.length > 0 ? (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {items.results.map((item) => (
+                    <BeforeAfterCard 
+                        before_image_url={item.before_image_url}
+                        after_image_url={item.after_image_url}
+                        title={item.title}
+                        treatment_name={item.treatment_name}
+                    />
+                ))}
+            </div>
+        ) : (
+            <div class="py-20 text-center">
+                <p class="text-white/40">등록된 전후사진이 없습니다.</p>
+            </div>
+        )}
+    </div>
+  </section>
+</BaseLayout>

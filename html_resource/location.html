@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오시는 길 - 루미너스의원</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="common.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { DEFAULT: '#D4A017', dark: '#B8860B', light: '#F5D060' },
+        dark: { DEFAULT: '#1a1a1a', bg: '#111111' },
+        muted: { DEFAULT: '#888888', foreground: '#555555' },
+        surface: '#f5f5f0',
+      },
+      fontFamily: {
+        kr: ['Noto Sans KR', 'sans-serif'],
+        en: ['Playfair Display', 'serif'],
+      },
+    },
+  },
+}
+</script>
+</head>
+<body class="text-dark overflow-x-hidden">
+
+
+<!-- PAGE BANNER -->
+<section class="pt-40 pb-14 md:pt-48 md:pb-20 px-5 md:px-10 bg-dark text-center">
+  <div class="font-en text-sm text-primary tracking-[3px] uppercase mb-2.5">Location</div>
+  <h2 class="font-en text-[24px] md:text-[38px] font-bold text-white leading-snug">Luminus <em class="text-primary italic">LOCATION</em></h2>
+  <p class="text-[14px] md:text-[15px] text-white/50 mt-3.5">루미너스의원 오시는 길을 안내합니다</p>
+</section>
+
+<!-- LOCATION -->
+<section class="py-16 md:py-24 px-5 md:px-10 bg-white">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 max-w-[1200px] mx-auto items-start fade-up">
+    <div class="w-full aspect-[4/3] bg-gray-200 rounded-xl flex items-center justify-center text-muted text-[15px] overflow-hidden">
+      <div class="text-center">
+        <i class="fas fa-map-marked-alt text-5xl text-primary mb-4 block"></i>
+        지도가 표시됩니다
+      </div>
+    </div>
+    <div>
+      <h4 class="text-lg font-bold mb-1.5">오시는 길</h4>
+      <p class="text-[15px] text-dark font-medium mb-7 leading-relaxed">인천 연수구 해돋이로 160-15, 206-211호<br>(송도동, 더퍼스트시티)</p>
+
+      <dl class="mb-8">
+        <dt class="text-sm font-bold text-primary-dark mb-1.5 flex items-center gap-1.5"><i class="fas fa-bus text-primary"></i> 대중교통 이용 시</dt>
+        <dd class="text-[13px] text-muted-foreground leading-relaxed mb-3.5 pl-1">· 더샵 하버뷰 14단지 (98, 순환41)<br>· 송도 힐스테이트 5단지 (16, 지선 525)</dd>
+        <dt class="text-sm font-bold text-primary-dark mb-1.5 flex items-center gap-1.5"><i class="fas fa-subway text-primary"></i> 지하철 이용 시</dt>
+        <dd class="text-[13px] text-muted-foreground leading-relaxed mb-3.5 pl-1">· 인천 1호선 인천대입구역 하차 4번 출구, 도보 15분</dd>
+        <dt class="text-sm font-bold text-primary-dark mb-1.5 flex items-center gap-1.5"><i class="fas fa-car text-primary"></i> 자가용 이용 시</dt>
+        <dd class="text-[13px] text-muted-foreground leading-relaxed mb-3.5 pl-1">· 건물 뒷편 주차장 출입구 통해 주차</dd>
+      </dl>
+
+      <table class="w-full border-collapse mb-8">
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">월요일 - 금요일</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">09:30 - 20:00</td></tr>
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">토요일</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">09:30 - 15:30</td></tr>
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">점심시간</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">점심시간 없음</td></tr>
+        <tr><th class="text-left py-2.5 px-3.5 text-sm font-medium text-dark w-[40%] border-b border-gray-100">일요일</th><td class="text-left py-2.5 px-3.5 text-sm text-muted-foreground border-b border-gray-100">휴진</td></tr>
+      </table>
+
+      <div class="bg-surface p-6 rounded-lg">
+        <div class="text-xs text-muted tracking-wide uppercase mb-2">상담 &amp; 문의</div>
+        <div class="font-en text-[28px] font-bold text-primary-dark tracking-wide">032.833.9909</div>
+        <div class="text-[13px] text-muted mt-1">FAX 032.833.9908</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script src="common.js"></script>
+</body>
+</html>
