@@ -12,10 +12,10 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: 'passthrough',
   }),
-  build: {
-    client: './dist',
-    server: './dist/_worker.js',
-  },
+  // build: {
+  //   client: './dist',
+  //   server: './dist/_worker.js',
+  // },
   integrations: [
     preact({ compat: true }),
     clerk()
