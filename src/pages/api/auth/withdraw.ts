@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 
 export const POST: APIRoute = async (context) => {
     const { request, locals } = context;
@@ -15,14 +16,14 @@ export const POST: APIRoute = async (context) => {
         const clerkId = user.id;
 
         // 1. Delete user from D1
-        const DB = (context.locals as any).runtime?.env?.DB;
+        const DB = (env as any).DB || (context.locals as any).DB;
         if (DB) {
             await DB.prepare('DELETE FROM users WHERE clerk_id = ?').bind(clerkId).run();
         }
 
         // 2. Delete user from Clerk
         // Using simple fetch to Clerk API since @clerk/backend might not be fully configured for Cloudflare Workers Environment variables automatically.
-        const secretKey = (context.locals as any).runtime?.env?.CLERK_SECRET_KEY || process.env.CLERK_SECRET_KEY;
+        const secretKey = (env as any).CLERK_SECRET_KEY || process.env.CLERK_SECRET_KEY;
 
         if (secretKey) {
             const resp = await fetch(`https://api.clerk.com/v1/users/${clerkId}`, {

@@ -30,10 +30,22 @@ interface PromotionClientProps {
     categories: Category[];
     promotions: Promotion[];
 }
-
 export default function PromotionClient({ categories, promotions }: PromotionClientProps) {
-    const [selectedCategory, setSelectedCategory] = useState<string>(categories[0]?.id || '');
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<'popular' | 'low' | 'high'>('popular');
+
+    // Default to 'All' category on mount
+    useEffect(() => {
+        if (categories.length > 0 && !selectedCategory) {
+            const allCat = categories.find(c => {
+                const n = c.name.toString().toLowerCase();
+                return n.includes('all') || n.includes('전체');
+            });
+            const defaultId = allCat ? allCat.id.toString() : categories[0].id.toString();
+            console.log('Setting default category:', defaultId, allCat?.name);
+            setSelectedCategory(defaultId);
+        }
+    }, [categories, selectedCategory]);
     const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -60,17 +72,25 @@ export default function PromotionClient({ categories, promotions }: PromotionCli
 
     // Derived state: Filtered & Sorted Promotions
     const visiblePromotions = useMemo(() => {
-        let list = promotions.filter(p => p.category_id === selectedCategory);
+        const selectedCatObj = categories.find(c => Number(c.id) === Number(selectedCategory));
+        const name = selectedCatObj?.name?.trim().toLowerCase() || '';
+        const isAll = name.includes('all') || name.includes('전체') || Number(selectedCategory) === 2;
+
+        console.log('Filtering promotions:', { selectedCategory, name, isAll, totalPromos: promotions.length });
+
+        let list = isAll
+            ? [...promotions]
+            : promotions.filter(p => Number(p.category_id) === Number(selectedCategory));
 
         if (sortOrder === 'low') {
             list.sort((a, b) => a.price - b.price);
         } else if (sortOrder === 'high') {
             list.sort((a, b) => b.price - a.price);
         } else {
-            list.sort((a, b) => a.sort_order - b.sort_order);
+            list.sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
         }
         return list;
-    }, [promotions, selectedCategory, sortOrder]);
+    }, [promotions, categories, selectedCategory, sortOrder]);
 
     const totalPrice = useMemo(() => {
         return selectedItems.reduce((acc, curr) => acc + curr.price, 0);
@@ -207,7 +227,7 @@ export default function PromotionClient({ categories, promotions }: PromotionCli
                     {/* List */}
                     <div class="flex flex-col gap-3">
                         {visiblePromotions.map(promo => (
-                            <div key={promo.id} class="bg-white rounded-xl overflow-hidden border border-gray-100 fade-up hover:shadow-md transition-shadow">
+                            <div key={promo.id} class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow" style={{ minHeight: '120px', display: 'block', visibility: 'visible', opacity: 1, backgroundColor: '#ffffff' }}>
                                 <div class="flex items-center p-4 md:p-5 gap-4">
                                     <div class="flex-1 min-w-0">
                                         {promo.badge_text && (

@@ -20,6 +20,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
     resolve: {
       alias: {
+        'fs': 'node:fs',
+        'path': 'node:path',
         'react-dom/server': 'react-dom/server.edge',
       }
     }

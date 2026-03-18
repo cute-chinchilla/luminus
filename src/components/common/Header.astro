@@ -12,6 +12,8 @@ const g2 = group2.some(path => currentPath.startsWith(path));
 const dc = 'block py-3 px-5 md:px-5 px-3.5 text-white/70 text-[13px] md:text-[13px] text-xs whitespace-nowrap no-underline hover:text-primary transition-colors';
 const ac = 'block py-3 px-5 md:px-5 px-3.5 text-primary text-[13px] md:text-[13px] text-xs whitespace-nowrap no-underline hover:text-primary transition-colors';
 
+import { UserButton } from '@clerk/astro/components';
+
 const user = await Astro.locals.currentUser();
 ---
 
@@ -31,7 +33,10 @@ const user = await Astro.locals.currentUser();
     <div class="absolute right-5 md:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 md:gap-6">
       <div class="hidden md:flex items-center gap-4 text-[13px]">
         {user ? (
-          <a href="/mypage" class="text-white/80 hover:text-white no-underline transition-colors flex items-center gap-1.5"><i class="fas fa-user-circle"></i> 마이페이지</a>
+          <div class="flex items-center gap-3">
+            <a href="/admin" class="text-primary hover:text-white no-underline transition-colors flex items-center gap-1.5"><i class="fas fa-cog"></i> 관리자</a>
+            <UserButton afterSignOutUrl="/" appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }} />
+          </div>
         ) : (
           <a href="/auth/login" class="text-white/80 hover:text-white no-underline transition-colors flex items-center gap-1.5"><i class="fas fa-sign-in-alt"></i> 로그인</a>
         )}

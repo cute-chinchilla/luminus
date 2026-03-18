@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { getDB } from '@/lib/db';
 
 export const POST: APIRoute = async (context) => {
     const { request, locals } = context;
@@ -8,18 +9,20 @@ export const POST: APIRoute = async (context) => {
         const type = payload.type;
         const data = payload.data;
 
-        const DB = (locals as any).runtime?.env?.DB;
+        const DB = getDB(locals);
         if (!DB) {
-            console.error('Database binding (DB) not found in runtime.env');
+            console.error('Database binding (DB) not found');
             return new Response('Database not configured', { status: 500 });
         }
 
         if (type === 'user.created') {
             const clerkId = data.id;
-            const adminEmails = ((locals as any).runtime?.env?.ADMIN_EMAILS || '').split(',').map((e: string) => e.trim());
+            const env = (locals as any)?.runtime?.env || (locals as any)?.env || (locals as any);
+            const adminEmailsStr = env.ADMIN_EMAILS || '';
+            const adminEmails = adminEmailsStr.split(',').map((e: string) => e.trim());
             const email = data.email_addresses?.[0]?.email_address || '';
 
-            const role = adminEmails.includes(email) ? 'admin' : 'user';
+            const role = adminEmails.indexOf(email) !== -1 ? 'admin' : 'user';
 
             // Insert new user into D1 Database
             await DB.prepare(`

@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers';
 import type { APIRoute } from 'astro';
 import { getR2, generateId } from '@/lib/r2';
 
@@ -7,7 +8,7 @@ export const POST: APIRoute = async (context) => {
         const request = context.request;
         const formData = await request.formData();
         const file = formData.get('file');
-        const folder = formData.get('folder') || 'common';
+        const folder = (formData.get('folder') || 'common').toString();
 
         if (!file || !(file instanceof File)) {
             return new Response(JSON.stringify({ success: false, error: 'No file uploaded' }), { status: 400 });
@@ -18,6 +19,8 @@ export const POST: APIRoute = async (context) => {
         const filename = `${generateId()}-${Date.now()}.${extension}`;
         const key = `${folder}/${filename}`;
 
+        console.log(`Uploading file to R2: ${key}, type: ${file.type}`);
+
         // Upload to R2
         const arrayBuffer = await file.arrayBuffer();
         await R2.put(key, arrayBuffer, {
@@ -26,15 +29,25 @@ export const POST: APIRoute = async (context) => {
             }
         });
 
-        // In local dev/Pages, the URL might need to be resolved via a custom domain.
-        // For now we assume a public r2.dev domain or custom domain available via env.
-        const publicDomain = (context.locals as any).runtime?.env?.R2_PUBLIC_DOMAIN;
-        const url = publicDomain ? `https://${publicDomain}/${key}` : `/${key}`; // Fallback to relative if not configured, though won't work perfectly in prod without proxy
+        // Resolve public URL
+        const publicDomain = (env as any).R2_PUBLIC_DOMAIN;
+        const publicPath = `/api/public/media/${key}`;
 
-        // Workaround for dev environment
-        const isDev = import.meta.env.DEV;
-        const finalUrl = isDev ? `http://localhost:4321/api/admin/media/${key}` : (publicDomain ? `https://${publicDomain}/${key}` : `/${key}`);
+        // If publicDomain is set, we still need prefix if it points to this app,
+        // but if it's a dedicated R2 custom domain, it wouldn't.
+        // For simplicity and safety, we favor the prefix route unless it's a different domain.
+        let finalUrl = publicPath;
+        if (publicDomain && !publicDomain.includes('workers.dev')) {
+            // Dedicated custom domain (e.g. media.example.com)
+            finalUrl = `https://${publicDomain}/${key}`;
+        } else if (import.meta.env.DEV) {
+            finalUrl = `http://localhost:4321${publicPath}`;
+        } else if (publicDomain && publicDomain.includes('workers.dev')) {
+            // It's the same workers.dev domain, must include prefix
+            finalUrl = `https://${publicDomain}${publicPath}`;
+        }
 
+        console.log(`File uploaded successfully. URL: ${finalUrl}`);
 
         return new Response(JSON.stringify({
             success: true,
@@ -46,7 +59,10 @@ export const POST: APIRoute = async (context) => {
         });
     } catch (error: any) {
         console.error('Upload Error:', error);
-        return new Response(JSON.stringify({ success: false, error: error.message }), { status: 500 });
+        return new Response(JSON.stringify({ success: false, error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 };
 

@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
+import { getDB } from '@/lib/db';
 
 const isProtectedRoute = createRouteMatcher([
     '/mypage(.*)',
@@ -20,7 +21,7 @@ export const onRequest = clerkMiddleware(async (auth, context, next) => {
 
         // Check if route is admin only
         if (isAdminRoute(context.request)) {
-            const DB = (context.locals as any).runtime?.env?.DB;
+            const DB = getDB(context.locals);
             if (DB) {
                 try {
                     const user = await DB.prepare('SELECT role FROM users WHERE clerk_id = ?').bind(authObj.userId).first();

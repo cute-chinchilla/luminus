@@ -1,8 +1,9 @@
 name = "luminus"
 compatibility_date = "2024-12-16"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = "./dist"
 
+main = "./dist/server/entry.mjs"
+assets = { directory = "./dist/client" }
 
 [[d1_databases]]
 binding = "DB"

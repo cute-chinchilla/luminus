@@ -50,11 +50,14 @@ export default function ImageUploader({ value, onChange, folder = 'common', labe
                 body: formData,
             });
 
+            console.log('Finalizing upload, response processing...');
             const data = await response.json();
 
             if (data.success && data.url) {
+                console.log('Upload success, URL:', data.url);
                 onChange(data.url);
             } else {
+                console.error('Upload failed:', data.error);
                 setError(data.error || '업로드 실패');
             }
         } catch (err: any) {

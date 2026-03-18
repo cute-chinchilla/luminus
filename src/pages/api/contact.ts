@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { sendContactEmail } from '@/lib/email';
+import { env } from 'cloudflare:workers';
 
 export const POST: APIRoute = async ({ request, locals }) => {
     try {
@@ -13,10 +14,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
             }), { status: 400 });
         }
 
-        // @ts-ignore - runtime.env is added by Cloudflare adapter
-        const env = locals.runtime?.env || process.env;
+        const cloudflareEnv = env || (locals as any).runtime?.env || process.env;
 
-        const { error } = await sendContactEmail(env, { name, phone, message });
+        const { error } = await sendContactEmail(cloudflareEnv, { name, phone, message });
 
         if (error) {
             console.error('Resend Error:', error);
