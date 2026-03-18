@@ -5,6 +5,7 @@ import cloudflare from '@astrojs/cloudflare';
 import preact from '@astrojs/preact';
 import tailwindcss from '@tailwindcss/vite';
 import clerk from '@clerk/astro';
+import { koKR } from '@clerk/localizations';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,7 +15,9 @@ export default defineConfig({
   }),
   integrations: [
     preact({ compat: true }),
-    clerk()
+    clerk({
+      localization: koKR,
+    })
   ],
   vite: {
     plugins: [tailwindcss()],

@@ -32,7 +32,7 @@ export const GET: APIRoute = async (context) => {
 
         // Integrate with Clerk data
         const secretKey = (env as any).CLERK_SECRET_KEY || import.meta.env.CLERK_SECRET_KEY;
-        const publishableKey = (env as any).CLERK_PUBLISHABLE_KEY || import.meta.env.CLERK_PUBLISHABLE_KEY;
+        const publishableKey = (env as any).PUBLIC_CLERK_PUBLISHABLE_KEY || import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 
         let integratedUsers = d1Users;
 

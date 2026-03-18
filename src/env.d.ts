@@ -9,7 +9,7 @@ declare namespace App {
     interface Env {
         DB: D1Database;
         R2: R2Bucket;
-        CLERK_PUBLISHABLE_KEY: string;
+        PUBLIC_CLERK_PUBLISHABLE_KEY: string;
         CLERK_SECRET_KEY: string;
         CLERK_WEBHOOK_SECRET: string;
         ADMIN_EMAILS: string;

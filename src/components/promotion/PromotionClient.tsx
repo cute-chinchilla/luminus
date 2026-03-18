@@ -169,7 +169,20 @@ export default function PromotionClient({ categories, promotions }: PromotionCli
         .promo-checkbox:checked { background: #1a1a1a; border-color: #D4A017; }
         .promo-checkbox:checked::after { content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; font-weight: bold; }
         .reservation-btn-fixed { position: fixed; bottom: 73px; left: 0; width: 100%; z-index: 998; }
-        @media (min-width: 768px) { .reservation-btn-fixed { bottom: 0; } } /* 모바일이 아닐 경우 탭바 높이 제거 */
+        /* 데스크탑에서 하단 고정 바(z-[999])에 가려지지 않도록 플로팅 CTA로 노출 */
+        @media (min-width: 768px) {
+          .reservation-btn-fixed {
+            bottom: 96px;
+            left: auto;
+            right: 24px;
+            width: min(360px, calc(100vw - 48px));
+            z-index: 1200;
+          }
+          .reservation-btn-fixed > button {
+            border-radius: 14px;
+            box-shadow: 0 18px 40px rgba(0,0,0,.28);
+          }
+        }
       `}} />
 
             {/* CATEGORY TABS */}
@@ -432,13 +445,13 @@ export default function PromotionClient({ categories, promotions }: PromotionCli
                         <button
                             onClick={handleSubmitBooking}
                             disabled={isSubmitting}
-                            class={`w-full py-4 text-primary text-[15px] font-bold rounded-lg border-none cursor-pointer transition-colors tracking-wider flex items-center justify-center gap-2 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-dark hover:bg-black'}`}
+                            class={`w-full py-4 text-primary text-[15px] font-bold rounded-lg border-none cursor-pointer transition-colors tracking-wider flex items-center justify-center gap-2 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-dark hover:bg-black'} mb-4`}
                         >
                             {isSubmitting ? (
                                 <>
                                     <i class="fas fa-spinner fa-spin"></i> 처리 중...
                                 </>
-                            ) : '예약 상담 신청 완료'}
+                            ) : '예약하기'}
                         </button>
                     </div>
                 </div>
